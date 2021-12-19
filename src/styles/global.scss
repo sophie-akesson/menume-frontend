@@ -5,7 +5,9 @@
 }
 
 html {
-    background: linear-gradient(180deg, #FFFFFF 0%, #E0E1EB 100%);
+  background: linear-gradient(180deg, #424256 0%, #000000 100%), url('/images/background.webp');
+  background-blend-mode: lighten;
+  background-size: cover;
 }
 
 html,
@@ -25,32 +27,41 @@ body {
   --size10: 0.625rem;
   --size15: 0.9375rem;
   --size17: 1.0625rem;
-  --size22: 1.375rem;
   --size20: 1.25rem;
-  --size25: 1.5625rem;
+  --size24: 1.5rem;
   --size30: 1.875rem;
   --size35: 2.1875rem;
   --size40: 2.5rem;
   --size45: 2.8125rem;
+  --size50: 3.125rem;
+  --size70: 4.375rem;
 
-  --element-padding: var(--size20);
+  --main-padding: var(--size20);
+  --div-padding: var(--size20);
 
-  --box-border-radius: var(--size40);
+  @media (min-width: 768px) {
+    --main-padding: var(--size70);
+  }
 
-  --box-shadow: box-shadow: 5px 5px 30px rgba(119, 119, 119, 0.2);
+  --div-border-radius: var(--size40);
 
-  --color-pink: #f4aecd;
-  --color-blue: #57ebf9;
-  --color-heading: #343e40;
-  --color-text: #6a6a74;
+  --div-shadow: box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+
+  --color-heading: #ffffff;
+  --color-text: #555555;
   --color-line: #ecedf6;
-  --color-input-background: #f6f6f9;
+  --color-input-background: #E8E9F4;
+  --color-button-text: #33333E;
+  --color-menu-text: #33333E;
+  --color-div: #FFFFFF;
+  --color-icons: #33333E;
 
   --main-font: 'Poppins', sans-serif;
 }
 
 h1,
-h2 {
+h2,
+h3 {
   font-weight: 700;
   color: var(--color-heading);
 }
@@ -58,13 +69,29 @@ h2 {
 h1 {
   margin: 0 0 var(--size35);
   font-size: var(--size30);
-  line-height: var(--size45);
+
+  @media (min-width: 768px) {
+    margin: 0 0 var(--size70);
+    font-size: var(--size50);
+  }
 }
 
 h2 {
   margin: 0 var(--size20);
   font-size: var(--size17);
-  line-height: var(--size25);
+
+  @media (min-width: 768px) {
+    font-size: var(--size24);
+  }
+}
+
+h3 {
+  margin: 0 var(--size20);
+  font-size: var(--size15);
+
+  @media (min-width: 768px) {
+    font-size: var(--size17);
+  }
 }
 
 li,
@@ -73,5 +100,4 @@ p {
   font-size: var(--size15);
   font-weight: 400;
   color: var(--color-text);
-  line-height: var(--size22);
 }
