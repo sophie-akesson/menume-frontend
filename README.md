@@ -49,6 +49,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```
 ├── assets/
 │    └── icons
+│    └── images
 ├── components
 │    └── ComponentName/
 │          └── index.ts
