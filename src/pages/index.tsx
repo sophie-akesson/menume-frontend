@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import { NextPage } from 'next/types';
 import Head from 'next/head';
 import WeeklyMenu from '@components/WeeklyMenu';
 import Link from 'next/link';
