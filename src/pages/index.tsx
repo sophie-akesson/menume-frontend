@@ -22,6 +22,13 @@ const Home: NextPage = () => {
       </header>
       <Wrapper>
         <Menu name={'Sophie'} />
+        <div>
+          <h1>Login</h1>
+          <div>
+            <button type='button'>Google</button>
+            <button type='button'>Facebook</button>
+          </div>
+        </div>
       </Wrapper>
     </>
   );
