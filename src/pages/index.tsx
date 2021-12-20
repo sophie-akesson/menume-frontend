@@ -15,11 +15,12 @@ const Home: NextPage = () => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
-      <Wrapper>
+      <header>
         <Link href='/'>
           <a>MenuMe</a>
         </Link>
+      </header>
+      <Wrapper>
         <Menu name={'Sophie'} />
       </Wrapper>
     </>
