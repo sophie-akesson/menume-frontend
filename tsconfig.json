@@ -5,6 +5,9 @@
       "@assets/*": [
         "src/assets/*"
       ],
+      "@components/*": [
+        "src/components/*"
+      ],
       "@styles/*": [
         "src/styles/*"
       ],

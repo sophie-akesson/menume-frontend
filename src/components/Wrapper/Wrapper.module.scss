@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--main-padding);
+
+  @media (min-width: 768px) {
+    width: 46.25rem;
+  }
+}
