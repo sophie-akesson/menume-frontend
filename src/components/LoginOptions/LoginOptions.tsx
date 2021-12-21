@@ -1,20 +1,18 @@
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
+import Router from 'next/router';
 
 const LoginOptions = () => (
   <div>
     <h1>Login</h1>
     <div>
-      <Link href='/api/auth/signin' passHref>
-        <button
-          onClick={e => {
-            e.preventDefault();
-            signIn();
-          }}
-        >
-          Google
-        </button>
-      </Link>
+      <button
+        onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+          Router.replace(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/connect/google/callback`
+          );
+        }}
+      >
+        Google
+      </button>
       <button type='button'>Facebook</button>
     </div>
   </div>

@@ -1,11 +1,11 @@
 import { setCookie } from 'nookies';
 
-const Register = async (req, res) => {
+const register = async (req, res) => {
   const { username, password, email } = req.body;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
       {
         method: 'POST',
         headers: {
@@ -17,10 +17,17 @@ const Register = async (req, res) => {
 
     const data = await response.json();
 
+    setCookie({ res }, 'jwt', data.jwt, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+
     res.status(200).end();
   } catch (error) {
-    res.status(400).send(error.response.data.message[0].messages[0]);
+    res.status(400).send(error.message);
   }
 };
 
-export default Register;
+export default register;
