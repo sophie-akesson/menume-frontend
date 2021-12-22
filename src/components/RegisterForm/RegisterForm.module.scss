@@ -1,28 +1,11 @@
-.loginHeader {
+.registerHeading {
   align-self: center;
 }
 
-.register {
-  padding-bottom: var(--size20);
-
-  p {
-    margin-bottom: 0;
-  }
-
-  a {
-    color: var(--color-menu-text);
-  }
-
-  a:hover {
-    color: var(--color-accent);
-  }
-}
-
-.loginForm {
+.registerForm {
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: var(--size20);
 
   label {
     display: flex;
@@ -43,14 +26,12 @@
       }
     }
   }
-}
 
-.loginOptionsWrapper {
-  display: flex;
-  width: 100%;
-}
+  .buttonWrapper {
+    display: flex;
+  }
 
-.span {
-  margin-bottom: var(--size20);
-  align-self: center;
+  .status {
+    color: red;
+  }
 }

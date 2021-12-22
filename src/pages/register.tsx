@@ -1,15 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import WeeklyMenu from '@components/WeeklyMenu';
 import Link from 'next/link';
-import Login from '@components/Login';
 import Layout from '@components/Layout';
+import RegisterForm from '@components/RegisterForm';
 
-const Home: NextPage = () => {
+const Register: NextPage = () => {
   return (
     <>
       <Head>
-        <title>MenuMe - Home</title>
+        <title>MenuMe - Register</title>
         <meta
           name='description'
           content='Fill in your favourite recipes and get your weekly menu.'
@@ -22,11 +21,10 @@ const Home: NextPage = () => {
         </Link>
       </header>
       <Layout>
-        {/* <WeeklyMenu name={'Sophie'} /> */}
-        <Login />
+        <RegisterForm />
       </Layout>
     </>
   );
 };
 
-export default Home;
+export default Register;
