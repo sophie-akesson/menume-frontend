@@ -1,17 +1,31 @@
 import styles from './Login.module.scss';
+import { useRouter } from 'next/router';
 import Box from '@components/Box';
 import Button from '@components/Button';
 import Wrapper from '@components/Wrapper';
+import Link from 'next/link';
 
 const Login = () => {
+  const router = useRouter();
+
   const placeholderFunction = () => {
     console.log('Test');
   };
 
+  const goToRegisterPage = () => {
+    router.replace('/register');
+  };
+
   return (
     <Wrapper>
-      <h1>Sign in</h1>
+      <h1 className={styles.loginHeader}>Login</h1>
       <Box halfWidth>
+        <div className={styles.register}>
+          <p>{`Don't have an account yet?`}</p>
+          <Link href='/register'>
+            <a>Register here.</a>
+          </Link>
+        </div>
         <form className={styles.loginForm}>
           <label>
             Email:
@@ -21,8 +35,9 @@ const Login = () => {
             Password:
             <input type='password' name='password' />
           </label>
-          <Button execute={placeholderFunction}>Log in</Button>
+          <Button execute={placeholderFunction}>Login</Button>
         </form>
+        <span className={styles.span}>Or login with</span>
         <div className={styles.loginOptionsWrapper}>
           <Button execute={placeholderFunction} orientation='left'>
             Google
@@ -31,7 +46,6 @@ const Login = () => {
             Facebook
           </Button>
         </div>
-        <Button execute={placeholderFunction}>Register new account</Button>
       </Box>
     </Wrapper>
   );

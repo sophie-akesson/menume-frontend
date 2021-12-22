@@ -4,6 +4,8 @@
   width: 100%;
 
   @media (min-width: 768px) {
-    align-items: center;
+    > div {
+      align-self: center;
+    }
   }
 }
