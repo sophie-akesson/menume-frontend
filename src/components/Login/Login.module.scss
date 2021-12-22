@@ -1,0 +1,32 @@
+.loginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--size20);
+
+  label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--size20);
+
+    input {
+      border-radius: var(--button-border-radius);
+      padding: var(--size10);
+      background-color: var(--color-input-background);
+      border: 0;
+      font-family: var(--main-font);
+      font-size: var(--size15);
+
+      &:focus {
+        outline: 0;
+        background-color: var(--color-input-background-focus);
+      }
+    }
+  }
+}
+
+.loginOptionsWrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: var(--size20);
+}

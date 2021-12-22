@@ -25,6 +25,7 @@ body {
 }
 
 :root {
+  --size1: 0.0625rem;
   --size10: 0.625rem;
   --size15: 0.9375rem;
   --size17: 1.0625rem;
@@ -38,24 +39,30 @@ body {
   --size70: 4.375rem;
 
   --main-padding: var(--size20);
-  --div-padding: var(--size20);
+  --box-padding: var(--size20);
+  --button-padding: var(--size10);
 
   @media (min-width: 768px) {
     --main-padding: var(--size70);
   }
 
-  --div-border-radius: var(--size40);
+  --box-border-radius: var(--size40);
+  --button-border-radius: var(--size40);
 
-  --div-shadow: box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  --box-shadow: box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
 
-  --color-heading: #ffffff;
+  --color-heading1: #ffffff;
+  --color-misc-heading: #33333E;
   --color-text: #555555;
   --color-line: #ecedf6;
   --color-input-background: #E8E9F4;
+  --color-input-background-focus: #c5c8d8;
   --color-button-text: #33333E;
   --color-menu-text: #33333E;
-  --color-div: #FFFFFF;
+  --color-box: #FFFFFF;
   --color-icons: #33333E;
+  --color-accent: #ff9b65;
+  --color--hover-accent: #ffbe9b;
 
   --main-font: 'Poppins', sans-serif;
 }
@@ -64,12 +71,12 @@ h1,
 h2,
 h3 {
   font-weight: 700;
-  color: var(--color-heading);
 }
 
 h1 {
   margin: 0 0 var(--size35);
   font-size: var(--size30);
+  color: var(--color-heading1);
 
   @media (min-width: 768px) {
     margin: 0 0 var(--size70);
@@ -80,6 +87,7 @@ h1 {
 h2 {
   margin: 0 var(--size20);
   font-size: var(--size17);
+  color: var(--color-misc-heading);
 
   @media (min-width: 768px) {
     font-size: var(--size24);
@@ -89,6 +97,7 @@ h2 {
 h3 {
   margin: 0 var(--size20);
   font-size: var(--size15);
+  color: var(--color-misc-heading);
 
   @media (min-width: 768px) {
     font-size: var(--size17);
@@ -97,7 +106,7 @@ h3 {
 
 li,
 p {
-  margin: 0;
+  margin: 0 0 var(--size20);
   font-size: var(--size15);
   font-weight: 400;
   color: var(--color-text);
