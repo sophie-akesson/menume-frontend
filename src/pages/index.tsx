@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Wrapper from '@components/Wrapper';
-import Menu from '@components/Menu';
+import WeeklyMenu from '@components/WeeklyMenu';
 import Link from 'next/link';
+import Login from '@components/Login';
+import Layout from '@components/Layout';
+import { useState } from 'react';
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +13,7 @@ const Home: NextPage = () => {
         <title>MenuMe - Home</title>
         <meta
           name='description'
-          content='Fill in your favouriite recipes and get your weekly menu.'
+          content='Fill in your favourite recipes and get your weekly menu.'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -20,16 +22,10 @@ const Home: NextPage = () => {
           <a>MenuMe</a>
         </Link>
       </header>
-      <Wrapper>
-        <Menu name={'Sophie'} />
-        <div>
-          <h1>Login</h1>
-          <div>
-            <button type='button'>Google</button>
-            <button type='button'>Facebook</button>
-          </div>
-        </div>
-      </Wrapper>
+      <Layout>
+        <WeeklyMenu name={'Sophie'} />
+        <Login />
+      </Layout>
     </>
   );
 };
