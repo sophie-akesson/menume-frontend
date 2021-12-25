@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: var(--main-padding);
+  padding: var(--size35) var(--main-padding);
   width: 100%;
 
   @media (min-width: 768px) {
     width: 46.25rem;
+    padding: var(--main-padding);
 
     > div {
       align-self: center;
