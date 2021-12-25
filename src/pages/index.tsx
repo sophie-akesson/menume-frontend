@@ -1,50 +1,15 @@
-import Head from 'next/head';
 import WeeklyMenu from '@components/WeeklyMenu';
-import Link from 'next/link';
 import LoginForm from '@components/LoginForm';
 import Layout from '@components/Layout';
 import nookies from 'nookies';
-import router from 'next/router';
 
 const Home = ({ user }) => {
   const { username } = user || {};
 
-  const logout = async () => {
-    try {
-      await fetch('/api/logout');
-      router.push('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <>
-      <Head>
-        <title>MenuMe - Home</title>
-        <meta
-          name='description'
-          content='Fill in your favourite recipes and get your weekly menu.'
-        />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <header>
-        <Link href='/'>
-          <a>MenuMe</a>
-        </Link>
-        {user && (
-          <button
-            type='button'
-            onClick={(event: React.MouseEvent<HTMLInputElement>) => {
-              logout();
-            }}
-          >
-            Sign Out
-          </button>
-        )}
-      </header>
-      <Layout>{user ? <WeeklyMenu name={username} /> : <LoginForm />}</Layout>
-    </>
+    <Layout isLoggedIn={user ? true : false}>
+      {user ? <WeeklyMenu name={username} /> : <LoginForm />}
+    </Layout>
   );
 };
 
