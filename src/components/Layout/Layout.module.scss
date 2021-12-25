@@ -7,6 +7,9 @@
 
   @media (min-width: 768px) {
     width: 46.25rem;
-    align-items: center;
+
+    > div {
+      align-self: center;
+    }
   }
 }

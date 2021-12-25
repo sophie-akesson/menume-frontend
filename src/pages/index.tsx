@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import WeeklyMenu from '@components/WeeklyMenu';
 import Link from 'next/link';
-import Login from '@components/Login';
+import LoginForm from '@components/LoginForm';
 import Layout from '@components/Layout';
 import nookies from 'nookies';
 import router from 'next/router';
@@ -43,7 +43,7 @@ const Home = ({ user }) => {
           </button>
         )}
       </header>
-      <Layout>{user ? <WeeklyMenu name={username} /> : <Login />}</Layout>
+      <Layout>{user ? <WeeklyMenu name={username} /> : <LoginForm />}</Layout>
     </>
   );
 };

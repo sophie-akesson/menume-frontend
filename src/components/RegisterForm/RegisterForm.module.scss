@@ -2,6 +2,10 @@
   align-self: center;
 }
 
+.error {
+  color: red;
+}
+
 .registerForm {
   width: 100%;
   display: flex;
@@ -13,7 +17,7 @@
     margin-bottom: var(--size20);
 
     input {
-      border-radius: var(--button-border-radius);
+      border-radius: var(--input-border-radius);
       padding: var(--size10);
       background-color: var(--color-input-background);
       border: 0;
@@ -29,9 +33,5 @@
 
   .buttonWrapper {
     display: flex;
-  }
-
-  .status {
-    color: red;
   }
 }

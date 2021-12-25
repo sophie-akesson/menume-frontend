@@ -48,6 +48,7 @@ body {
 
   --box-border-radius: var(--size40);
   --button-border-radius: var(--size40);
+  --input-border-radius: var(--size40);
 
   --box-shadow: box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
 
@@ -105,9 +106,15 @@ h3 {
 }
 
 li,
-p {
+p,
+span,
+label {
   margin: 0 0 var(--size20);
   font-size: var(--size15);
   font-weight: 400;
   color: var(--color-text);
+}
+
+label {
+  font-weight: 700;
 }

@@ -1,17 +1,17 @@
 import { setCookie } from 'nookies';
 
-const register = async (req, res) => {
-  const { username, password, email } = req.body;
+const login = async (req, res) => {
+  const { identifier, password } = req.body;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ identifier, password }),
       }
     );
 
@@ -32,4 +32,4 @@ const register = async (req, res) => {
   }
 };
 
-export default register;
+export default login;
