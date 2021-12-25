@@ -19,22 +19,22 @@
     justify-content: flex-end;
 
     li {
+      @media (min-width: 768px) {
+        margin-bottom: 0;
+        margin-left: var(--size20);
+      }
+
       &:first-child {
         @media (min-width: 768px) {
           margin-right: auto;
         }
-      }
-
-      @media (min-width: 768px) {
-        margin-bottom: 0;
-        margin-left: var(--size20);
       }
     }
   }
 
   .top {
     display: flex;
-    max-height: calc(var(--size60) + var(--size35));
+    max-height: calc(var(--size60) + var(--size15));
 
     @media (min-width: 768px) {
       display: none;
