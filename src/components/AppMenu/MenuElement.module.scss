@@ -7,12 +7,12 @@
   top: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--color-accent);
+  background: var(--color-button);
   animation: animateMenu 0.8s ease;
 
   @media (min-width: 768px) {
     position: static;
-    background-color: var(--color-box);
+    background: var(--color-box);
     height: var(--size60);
     animation: none;
     align-items: center;
@@ -44,7 +44,7 @@
       font-size: var(--size24);
       font-weight: 700;
       text-decoration: none;
-      color: var(--color-menu-text);
+      color: var(--color-heading1);
       line-height: var(--size20);
       margin-top: var(--size20);
     }
@@ -82,6 +82,7 @@
       transform: rotate3d(0, 0, 1, 90deg);
 
       .lines {
+        background-color: var(--color-heading1);
         transition: top 0.3s ease, transform 0.3s 0.1s ease;
       }
 
@@ -102,10 +103,11 @@
     font-size: var(--size30);
     font-weight: 500;
     text-decoration: none;
-    color: var(--color-menu-text);
+    color: var(--color-heading1);
 
     @media (min-width: 768px) {
       font-size: var(--size15);
+      color: var(--color-menu-text);
     }
   }
 

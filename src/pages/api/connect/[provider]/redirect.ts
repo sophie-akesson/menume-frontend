@@ -1,12 +1,12 @@
 import { setCookie } from 'nookies';
 
-const callback = async (req, res) => {
+const redirect = async (req, res) => {
   const { provider } = req.query;
   const { access_token } = req.body;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/${provider}/callback`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/${provider}/callback`,
       {
         method: 'GET',
         headers: {
@@ -31,4 +31,4 @@ const callback = async (req, res) => {
   }
 };
 
-export default callback;
+export default redirect;
