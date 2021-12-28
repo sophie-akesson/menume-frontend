@@ -4,7 +4,7 @@ import Button from '@components/Button';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 
-const Custom404: NextPage = () => {
+const About: NextPage = () => {
   const router = useRouter();
 
   const backToStartPage = () => {
@@ -33,4 +33,4 @@ const Custom404: NextPage = () => {
   );
 };
 
-export default Custom404;
+export default About;

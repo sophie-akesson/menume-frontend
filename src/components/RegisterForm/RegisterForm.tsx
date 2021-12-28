@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Box from '@components/Box';
 import { useForm } from 'react-hook-form';
 import { formDataProps } from './types';
+import backToStartPage from '@utils/backToStartPage';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const RegisterForm = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const onSubmit = async (formData: formDataProps) => {
     try {
@@ -35,92 +37,99 @@ const RegisterForm = () => {
         throw new Error(data.error);
       }
 
-      router.replace('/');
+      setIsRegistered(true);
     } catch (error) {
       setStatus(error.message);
     }
   };
 
-  const backToStartPage = () => {
-    router.replace('/');
-  };
-
   return (
     <>
-      <h1 className={styles.registerHeading}>Register</h1>
+      <h1 className={styles.heading}>Register</h1>
       <Box halfWidth>
-        {status.length > 0 && <span className={styles.error}>{status}</span>}
-        <form className={styles.registerForm}>
-          <label>
-            Username:
-            <input
-              {...register('username', {
-                minLength: {
-                  value: 3,
-                  message: 'Username must be at least 3 characters long',
-                },
-              })}
-              type='text'
-            />
-          </label>
-          {errors.username && (
-            <span className={styles.error}>{errors.username.message}</span>
-          )}
-          <label>
-            Email:
-            <input
-              {...register('email', {
-                required: 'required',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Entered value does not match email format',
-                },
-              })}
-              type='email'
-            />
-          </label>
-          {errors.email && (
-            <span className={styles.error}>{errors.email.message}</span>
-          )}
-          <label>
-            Password:
-            <input
-              {...register('password', {
-                required: 'required',
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message:
-                    'Password must have a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character',
-                },
-              })}
-              type='password'
-            />
-          </label>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-          <label>
-            Confirm password:
-            <input
-              {...register('confirmPassword', {
-                validate: (value: string) => value === watch('password'),
-              })}
-              type='password'
-            />
-          </label>
-          {errors.confirmPassword && (
-            <span className={styles.error}>Passwords must match</span>
-          )}
-          <div className={styles.buttonWrapper}>
-            <Button onClick={backToStartPage} orientation='left'>
-              Go back
-            </Button>
-            <Button onClick={handleSubmit(onSubmit)} orientation='right'>
-              Register
-            </Button>
-          </div>
-        </form>
+        {isRegistered ? (
+          <>
+            <p>Registration successful!</p>
+            <Button>Back to start page</Button>
+          </>
+        ) : (
+          <>
+            {status.length > 0 && (
+              <span className={styles.error}>{status}</span>
+            )}
+            <form className={styles.registerForm}>
+              <label>
+                Username:
+                <input
+                  {...register('username', {
+                    minLength: {
+                      value: 3,
+                      message: 'Username must be at least 3 characters long',
+                    },
+                  })}
+                  type='text'
+                />
+              </label>
+              {errors.username && (
+                <span className={styles.error}>{errors.username.message}</span>
+              )}
+              <label>
+                Email:
+                <input
+                  {...register('email', {
+                    required: 'required',
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: 'Entered value does not match email format',
+                    },
+                  })}
+                  type='email'
+                />
+              </label>
+              {errors.email && (
+                <span className={styles.error}>{errors.email.message}</span>
+              )}
+              <label>
+                Password:
+                <input
+                  {...register('password', {
+                    required: 'required',
+                    pattern: {
+                      value:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                      message:
+                        'Password must have a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+                    },
+                  })}
+                  type='password'
+                />
+              </label>
+              {errors.password && (
+                <span className={styles.error}>{errors.password.message}</span>
+              )}
+              <label>
+                Confirm password:
+                <input
+                  {...register('confirmPassword', {
+                    validate: (value: string) => value === watch('password'),
+                  })}
+                  type='password'
+                />
+              </label>
+              {errors.confirmPassword && (
+                <span className={styles.error}>Passwords must match</span>
+              )}
+              <div className={styles.buttonWrapper}>
+                <Button onClick={backToStartPage} orientation='left'>
+                  Go back
+                </Button>
+                <Button onClick={handleSubmit(onSubmit)} orientation='right'>
+                  Register
+                </Button>
+              </div>
+            </form>
+          </>
+        )}
       </Box>
     </>
   );

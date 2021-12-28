@@ -59,9 +59,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │          └── aFunction.ts
 │          └── types.ts
 │          └── tests/
-├── lib/
+├── interfaces/
 ├── pages/
 ├── styles/
-├── interfaces/
 ├── utils
 ```

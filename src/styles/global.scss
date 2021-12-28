@@ -5,7 +5,8 @@
 }
 
 html {
-  background: linear-gradient(180deg, #424256 0%, #000000 100%), url('/images/background.webp');
+  background: linear-gradient(180deg, #424256 0%, #000000 100%),
+    url('/images/background.webp');
   background-blend-mode: lighten;
   background-size: cover;
 }
@@ -43,7 +44,7 @@ body {
 
   --main-padding: var(--size20);
   --box-padding: var(--size20);
-  --button-padding: var(--size10);
+  --button-padding: var(--size10) var(--size30);
 
   @media (min-width: 768px) {
     --main-padding: var(--size70);
@@ -53,20 +54,27 @@ body {
   --button-border-radius: var(--size40);
   --input-border-radius: var(--size40);
 
-  --box-shadow: box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  --box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  --button-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 
   --color-heading1: #ffffff;
-  --color-misc-heading: #33333E;
+  --color-misc-heading: #33333e;
   --color-text: #555555;
   --color-line: #ecedf6;
-  --color-input-background: #E8E9F4;
+  --color-input-background: #e8e9f4;
   --color-input-background-focus: #c5c8d8;
-  --color-button-text: #33333E;
-  --color-menu-text: #33333E;
-  --color-box: #FFFFFF;
-  --color-icons: #33333E;
-  --color-accent: #ff9b65;
-  --color--hover-accent: #ffbe9b;
+  --color-button-text: #ffffff;
+  --color-menu-text: #33333e;
+  --color-box: #ffffff;
+  --color-icons: #33333e;
+  --color-accent: #9c5e9a;
+  --color--hover-accent: rgba(0, 0, 0, 0.3);
+  --color-button: linear-gradient(264.92deg, #5668a8 -29.14%, #9c5e9a 121.1%);
+  --color-button-right: linear-gradient(
+    84.92deg,
+    #5668a8 -29.14%,
+    #9c5e9a 121.1%
+  );
 
   --main-font: 'Poppins', sans-serif;
 }
@@ -84,7 +92,6 @@ h1 {
 
   @media (min-width: 768px) {
     margin: 0 0 var(--size70);
-    font-size: var(--size50);
   }
 }
 
@@ -112,12 +119,42 @@ li,
 p,
 span,
 label {
-  margin: 0 0 var(--size20);
+  margin: 0 0 var(--size20) 0;
   font-size: var(--size15);
   font-weight: 400;
   color: var(--color-text);
 }
 
+a {
+  color: var(--color-menu-text);
+  font-size: var(--size15);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
 label {
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--size20);
+}
+
+input {
+  border-radius: var(--input-border-radius);
+  padding: var(--size10);
+  background-color: var(--color-input-background);
+  border: 0;
+  font-family: var(--main-font);
+  font-size: var(--size15);
+
+  &:focus {
+    outline: 0;
+    background-color: var(--color-input-background-focus);
+  }
+}
+
+span {
+  display: block;
 }

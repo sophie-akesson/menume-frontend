@@ -1,10 +1,9 @@
-.loginHeader {
+.heading {
   align-self: center;
 }
 
 .error {
   color: red;
-  font-size: var(--size15);
 }
 
 .register {
@@ -12,14 +11,6 @@
 
   p {
     margin-bottom: 0;
-  }
-
-  a {
-    color: var(--color-menu-text);
-  }
-
-  a:hover {
-    color: var(--color-accent);
   }
 }
 
@@ -30,22 +21,16 @@
   padding-bottom: var(--size20);
 
   label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: var(--size20);
+    &:nth-child(2) {
+      margin-bottom: 0;
+    }
+  }
 
-    input {
-      border-radius: var(--input-border-radius);
-      padding: var(--size10);
-      background-color: var(--color-input-background);
-      border: 0;
-      font-family: var(--main-font);
-      font-size: var(--size15);
+  .forgotPassword {
+    padding-bottom: var(--size20);
 
-      &:focus {
-        outline: 0;
-        background-color: var(--color-input-background-focus);
-      }
+    p {
+      margin-bottom: 0;
     }
   }
 }

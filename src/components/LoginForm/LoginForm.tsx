@@ -37,14 +37,12 @@ const LoginForm = () => {
   };
 
   const loginViaProvider = (provider: string) => {
-    router.replace(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/connect/${provider}/callback`
-    );
+    router.replace(`${process.env.NEXT_PUBLIC_API_URL}/connect/${provider}`);
   };
 
   return (
     <>
-      <h1 className={styles.loginHeader}>Login</h1>
+      <h1 className={styles.heading}>Login</h1>
       <Box halfWidth>
         <div className={styles.register}>
           <p>{`Don't have an account yet?`}</p>
@@ -72,6 +70,11 @@ const LoginForm = () => {
               type='password'
             />
           </label>
+          <div className={styles.forgotPassword}>
+            <Link href='/forgot-password'>
+              <a>Forgot password?</a>
+            </Link>
+          </div>
           <Button onClick={handleSubmit(onSubmit)}>Login</Button>
         </form>
         <span className={styles.span}>Or login with:</span>
