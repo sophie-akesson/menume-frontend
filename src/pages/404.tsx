@@ -3,13 +3,10 @@ import Box from '@components/Box';
 import Button from '@components/Button';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
+import backToStartPage from '@utils/backToStartPage';
 
 const Custom404: NextPage = () => {
   const router = useRouter();
-
-  const backToStartPage = () => {
-    router.replace('/');
-  };
 
   return (
     <Layout isLoggedIn={false}>
