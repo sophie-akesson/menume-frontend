@@ -83,10 +83,10 @@ const LoginForm = () => {
             Google
           </Button>
           <Button
-            onClick={() => loginViaProvider('reddit')}
+            onClick={() => loginViaProvider('twitch')}
             orientation='right'
           >
-            Reddit
+            Twitch
           </Button>
         </div>
       </Box>

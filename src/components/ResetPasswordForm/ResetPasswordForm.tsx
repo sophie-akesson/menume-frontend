@@ -17,7 +17,6 @@ const ResetPasswordForm = () => {
   } = useForm();
 
   const onSubmit = async (formData: formDataProps) => {
-    console.log(router.query.code);
     try {
       const response = await fetch('/api/reset-password', {
         method: 'POST',
