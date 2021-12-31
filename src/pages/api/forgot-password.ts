@@ -15,7 +15,7 @@ const forgotPassword = async (req, res) => {
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.error.message);
+    if (response.status != 200) throw new Error(data.message[0].messages[0].id);
 
     res.status(200).end();
   } catch (error) {

@@ -4,6 +4,7 @@
 
 .error {
   color: red;
+  margin: 0 var(--size15);
 }
 
 .registerForm {
@@ -11,7 +12,15 @@
   display: flex;
   flex-direction: column;
 
-  .buttonWrapper {
-    display: flex;
+  div:not(:last-child) {
+    margin-bottom: var(--size20);
   }
+
+  .badRequestSpan {
+    margin-bottom: var(--size20);
+  }
+}
+
+.registered {
+  margin-left: var(--size15);
 }

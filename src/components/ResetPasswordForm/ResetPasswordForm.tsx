@@ -37,7 +37,9 @@ const ResetPasswordForm = () => {
 
       router.replace('/');
     } catch (error) {
-      setStatus(error.message);
+      setStatus(
+        'Det gick inte att sätta ett nytt lösenord. Kontrollera att det inte har gått för lång tid sedan du fick mejlet med återställningslänken.'
+      );
     }
   };
 
@@ -45,38 +47,44 @@ const ResetPasswordForm = () => {
     <>
       <h1 className={styles.heading}>Reset password</h1>
       <Box halfWidth>
-        {status.length > 0 && <span className={styles.error}>{status}</span>}
-        <form className={styles.resetPasswordForm}>
-          <label>
-            Enter new password:
+        <form
+          className={styles.resetPasswordForm}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className='fieldGroup'>
+            <label htmlFor='password'>Enter new password:</label>
             <input
               {...register('password', {
-                required: 'required',
+                required: 'Obligatorisk',
                 pattern: {
                   value:
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                   message:
-                    'Password must have a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+                    'Lösenordet måste innehålla minst 8 tecken, minst en versal, minst en gemen, ett nummer och ett specialtecken.',
                 },
               })}
               type='password'
+              id='password'
             />
-          </label>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-          <label>
-            Confirm new password:
+          </div>
+          <div className='fieldGroup'>
+            <label htmlFor='confirmPassword'>Confirm new password:</label>
             <input
               {...register('confirmPassword', {
                 validate: (value: string) => value === watch('password'),
               })}
               type='password'
+              id='confirmPassword'
             />
-          </label>
-          {errors.confirmPassword && (
-            <span className={styles.error}>Passwords must match</span>
-          )}
+            {errors.confirmPassword && (
+              <span className={styles.error}>
+                Lösenorden måste stämma överens.
+              </span>
+            )}
+            {status.length > 0 && (
+              <span className={styles.error}>{status}</span>
+            )}
+          </div>
           <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
         </form>
       </Box>
