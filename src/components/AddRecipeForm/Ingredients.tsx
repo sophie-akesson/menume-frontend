@@ -53,14 +53,18 @@ const Ingredients = ({ control, register, errors }) => {
                 </span>
               )}
             </div>
-            <h3>Enhet:</h3>
-            <MetricOptions register={register} index={index} />
-            {errors?.ingredients?.[index]?.metric && (
-              <span className={styles.error}>Du måste välja en enhet.</span>
-            )}
-            {index != 0 ? (
-              <Button onClick={() => remove(index)}>Ta bort ingrediens</Button>
-            ) : null}
+            <div className={styles.metricWrapper}>
+              <h3>Enhet:</h3>
+              <MetricOptions register={register} index={index} />
+              {errors?.ingredients?.[index]?.metric && (
+                <span className={styles.error}>Du måste välja en enhet.</span>
+              )}
+              {index != 0 ? (
+                <Button onClick={() => remove(index)}>
+                  Ta bort ingrediens
+                </Button>
+              ) : null}
+            </div>
           </div>
         );
       })}

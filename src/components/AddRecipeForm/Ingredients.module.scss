@@ -29,6 +29,15 @@
     }
   }
 
+  .metricWrapper button {
+    margin-top: var(--size20);
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
   button {
     @media (min-width: 768px) {
       width: 50%;

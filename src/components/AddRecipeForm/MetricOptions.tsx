@@ -14,6 +14,15 @@ const MetricOptions = ({ register, index }) => {
       </div>
       <div className={styles.metricRow}>
         <input
+          id={`skivor${index}`}
+          {...register(`ingredients.${index}.metric`, { required: true })}
+          type='radio'
+          value='skivor'
+        />
+        <label htmlFor={`skivor${index}`}>skivor</label>
+      </div>
+      <div className={styles.metricRow}>
+        <input
           id={`krm${index}`}
           {...register(`ingredients.${index}.metric`, { required: true })}
           type='radio'

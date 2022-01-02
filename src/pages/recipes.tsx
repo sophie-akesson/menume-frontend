@@ -3,10 +3,10 @@ import Layout from '@components/Layout';
 import LoginForm from '@components/LoginForm';
 import nookies from 'nookies';
 
-const Recipes = ({ user }) => {
+const Recipes = ({ user, token }) => {
   return (
     <Layout isLoggedIn={user ? true : false}>
-      {user ? <AddRecipeForm /> : <LoginForm />}
+      {user ? <AddRecipeForm token={token} /> : <LoginForm />}
     </Layout>
   );
 };
@@ -14,6 +14,7 @@ const Recipes = ({ user }) => {
 export const getServerSideProps = async ctx => {
   const cookies = nookies.get(ctx);
   let user = null;
+  let token = null;
 
   if (cookies?.jwt) {
     try {
@@ -29,6 +30,7 @@ export const getServerSideProps = async ctx => {
       const data = await response.json();
 
       user = data;
+      token = cookies.jwt;
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +39,7 @@ export const getServerSideProps = async ctx => {
   return {
     props: {
       user,
+      token,
     },
   };
 };
