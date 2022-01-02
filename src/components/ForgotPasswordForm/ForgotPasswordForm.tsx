@@ -1,6 +1,6 @@
 import styles from './ForgotPasswordForm.module.scss';
 import Button from '@components/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import backToStartPage from '@utils/backToStartPage';
@@ -35,7 +35,9 @@ const ForgotPasswordForm = () => {
 
       setIsSent(true);
     } catch (error) {
-      setStatus(error.message);
+      setStatus(
+        'Det gick inte att skicka något mejl till din användare. Var god försök igen.'
+      );
     }
   };
 
@@ -48,27 +50,31 @@ const ForgotPasswordForm = () => {
             An email has been sent with a link to reset your password.
           </p>
         ) : (
-          <form>
-            <label>
-              Please enter your email address:
+          <form
+            className={styles.forgotPasswordForm}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className='fieldGroup'>
+              <label htmlFor='email'>Please enter your email address:</label>
               <input
                 {...register('email', {
                   required: 'required',
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: 'Entered value does not match email format',
+                    message: 'Värdet matchar inte formatet för mejladress.',
                   },
                 })}
                 type='email'
+                id='email'
               />
-            </label>
-            {errors.email && (
-              <span className={styles.error}>{errors.email.message}</span>
-            )}
+              {errors.email && (
+                <span className={styles.error}>{errors.email.message}</span>
+              )}
+            </div>
             {status.length > 0 && (
               <span className={styles.error}>{status}</span>
             )}
-            <div className={styles.buttonWrapper}>
+            <div className='buttonWrapper'>
               <Button onClick={backToStartPage} orientation='left'>
                 Go back
               </Button>

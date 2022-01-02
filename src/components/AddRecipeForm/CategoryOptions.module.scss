@@ -1,0 +1,65 @@
+.categoryWrapper {
+  @media (min-width: 768px) {
+    display: grid;
+    gap: var(--size10);
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  :first-child {
+    width: 100%;
+  }
+
+  .categoryRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0 !important;
+
+    input[type='radio'] {
+      margin: 0;
+      display: inline-block;
+      width: 0;
+    }
+
+    input[type='radio']:checked + label {
+      background: var(--color-button);
+      color: var(--color-button-text);
+    }
+
+    input[type='radio']:checked + label::before {
+      border: 2px solid white;
+      width: var(--size8);
+      height: var(--size8);
+    }
+
+    label {
+      padding: var(--size10) var(--size15);
+      border-radius: var(--input-border-radius);
+      font-weight: 500;
+      font-size: var(--size15);
+      width: 100%;
+      margin-left: 0;
+      align-items: center;
+      margin-top: var(--size10);
+      border: 1px solid transparent;
+
+      &:hover {
+        cursor: pointer;
+        border: 1px solid var(--color-accent);
+      }
+    }
+
+    label::before {
+      content: '';
+      width: var(--size10);
+      height: var(--size10);
+      border: 1px solid var(--color-accent);
+      color: white;
+      border-radius: 50%;
+      margin-right: var(--size10);
+    }
+  }
+
+  .error {
+    color: red;
+  }
+}

@@ -32,7 +32,7 @@ const LoginForm = () => {
 
       router.replace('/');
     } catch (error) {
-      setStatus(error.message);
+      setStatus('Felaktig mejladress eller lösenord.');
     }
   };
 
@@ -50,35 +50,37 @@ const LoginForm = () => {
             <a>Register here.</a>
           </Link>
         </div>
-        {status ? <p className={styles.error}>{status}</p> : null}
-        <form className={styles.loginForm}>
-          <label>
-            Email:
+        <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+          <div className='fieldGroup'>
+            <label htmlFor='email'>Email:</label>
             <input
               {...register('identifier', {
-                required: 'required',
+                required: 'Obligatorisk',
               })}
               type='text'
+              id='email'
             />
-          </label>
-          <label>
-            Password:
+          </div>
+          <div className='fieldGroup'>
+            <label htmlFor='password'>Password:</label>
             <input
               {...register('password', {
-                required: 'required',
+                required: 'Obligatorisk',
               })}
               type='password'
+              id='password'
             />
-          </label>
+          </div>
           <div className={styles.forgotPassword}>
             <Link href='/forgot-password'>
               <a>Forgot password?</a>
             </Link>
           </div>
+          {status ? <span className={styles.error}>{status}</span> : null}
           <Button onClick={handleSubmit(onSubmit)}>Login</Button>
         </form>
         <span className={styles.span}>Or login with:</span>
-        <div className={styles.loginOptionsWrapper}>
+        <div className='buttonWrapper'>
           <Button onClick={() => loginViaProvider('google')} orientation='left'>
             Google
           </Button>
