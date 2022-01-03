@@ -60,7 +60,7 @@ const Ingredients = ({ control, register, errors }) => {
                 <span className={styles.error}>Du måste välja en enhet.</span>
               )}
               {index != 0 ? (
-                <Button onClick={() => remove(index)}>
+                <Button type='button' onClick={() => remove(index)}>
                   Ta bort ingrediens
                 </Button>
               ) : null}
@@ -70,6 +70,7 @@ const Ingredients = ({ control, register, errors }) => {
       })}
       <div className={styles.ingredientWrapper}>
         <Button
+          type='button'
           onClick={() =>
             append({
               name: '',

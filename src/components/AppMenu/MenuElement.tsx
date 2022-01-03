@@ -38,7 +38,7 @@ const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
                   showMenu();
                 }}
               >
-                Grocery list
+                Inköpslista
               </a>
             </Link>
           </li>
@@ -49,7 +49,7 @@ const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
                   showMenu();
                 }}
               >
-                Your recipes
+                Dina recept
               </a>
             </Link>
           </li>
@@ -61,7 +61,7 @@ const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
                 showMenu();
               }}
             >
-              Log out
+              Logga ut
             </button>
           </li>
         </>
@@ -74,7 +74,7 @@ const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
                   showMenu();
                 }}
               >
-                About
+                Om
               </a>
             </Link>
           </li>
@@ -85,7 +85,7 @@ const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
                   showMenu();
                 }}
               >
-                Register
+                Registrera konto
               </a>
             </Link>
           </li>

@@ -57,7 +57,10 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
         {isAdded ? (
           <p>Receptet är tillagt!</p>
         ) : (
-          <form className={styles.addRecipeForm}>
+          <form
+            className={styles.addRecipeForm}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className='row'>
               <div className='fieldGroup'>
                 <label htmlFor='recipeName'>Receptnamn:</label>
@@ -116,10 +119,18 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
             />
             {status && <span className={styles.error}>{status}</span>}
             <div className='buttonWrapper'>
-              <Button onClick={showAddRecipeForm} orientation='left'>
+              <Button
+                type='button'
+                onClick={showAddRecipeForm}
+                orientation='left'
+              >
                 Avbryt
               </Button>
-              <Button onClick={handleSubmit(onSubmit)} orientation='right'>
+              <Button
+                type='submit'
+                onClick={handleSubmit(onSubmit)}
+                orientation='right'
+              >
                 Spara recept
               </Button>
             </div>

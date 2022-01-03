@@ -43,11 +43,12 @@ const ForgotPasswordForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Forgot password</h1>
+      <h1 className={styles.heading}>Glömt lösenord</h1>
       <Box halfWidth>
         {isSent ? (
           <p className={styles.sent}>
-            An email has been sent with a link to reset your password.
+            Ett mejl har skickats med en länk för återställning av ditt
+            lösenord.
           </p>
         ) : (
           <form
@@ -55,7 +56,7 @@ const ForgotPasswordForm = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className='fieldGroup'>
-              <label htmlFor='email'>Please enter your email address:</label>
+              <label htmlFor='email'>Fyll i din mejladress:</label>
               <input
                 {...register('email', {
                   required: 'required',
@@ -75,11 +76,19 @@ const ForgotPasswordForm = () => {
               <span className={styles.error}>{status}</span>
             )}
             <div className='buttonWrapper'>
-              <Button onClick={backToStartPage} orientation='left'>
-                Go back
+              <Button
+                type='button'
+                onClick={backToStartPage}
+                orientation='left'
+              >
+                Tillbaka
               </Button>
-              <Button onClick={handleSubmit(onSubmit)} orientation='right'>
-                Send link
+              <Button
+                type='submit'
+                onClick={handleSubmit(onSubmit)}
+                orientation='right'
+              >
+                Skicka länk
               </Button>
             </div>
           </form>

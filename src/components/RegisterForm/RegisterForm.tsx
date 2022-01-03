@@ -45,12 +45,14 @@ const RegisterForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Register</h1>
+      <h1 className={styles.heading}>Registrera konto</h1>
       <Box halfWidth>
         {isRegistered ? (
           <>
-            <p className={styles.registered}>Registration successful!</p>
-            <Button onClick={backToStartPage}>Back to start page</Button>
+            <p className={styles.registered}>Du är nu registrerad.</p>
+            <Button type='button' onClick={backToStartPage}>
+              Tillbaka till startsidan
+            </Button>
           </>
         ) : (
           <>
@@ -59,7 +61,7 @@ const RegisterForm = () => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className='fieldGroup'>
-                <label htmlFor='username'>Username:</label>
+                <label htmlFor='username'>Användarnamn:</label>
                 <input
                   {...register('username', {
                     required: 'Obligatorisk',
@@ -78,7 +80,7 @@ const RegisterForm = () => {
                 )}
               </div>
               <div className='fieldGroup'>
-                <label htmlFor='email'>Email:</label>
+                <label htmlFor='email'>Mailadress:</label>
                 <input
                   {...register('email', {
                     required: 'Obligatorisk',
@@ -95,7 +97,7 @@ const RegisterForm = () => {
                 )}
               </div>
               <div className='fieldGroup'>
-                <label htmlFor='password'>Password:</label>
+                <label htmlFor='password'>Lösenord:</label>
                 <input
                   {...register('password', {
                     required: 'Obligatorisk',
@@ -116,7 +118,7 @@ const RegisterForm = () => {
                 )}
               </div>
               <div className='fieldGroup'>
-                <label htmlFor='confirmPassword'>Confirm password:</label>
+                <label htmlFor='confirmPassword'>Bekräfta lösenord:</label>
                 <input
                   {...register('confirmPassword', {
                     validate: (value: string) => value === watch('password'),
@@ -136,11 +138,19 @@ const RegisterForm = () => {
                 </span>
               )}
               <div className='buttonWrapper'>
-                <Button onClick={backToStartPage} orientation='left'>
-                  Go back
+                <Button
+                  type='button'
+                  onClick={backToStartPage}
+                  orientation='left'
+                >
+                  Tillbaka
                 </Button>
-                <Button onClick={handleSubmit(onSubmit)} orientation='right'>
-                  Register
+                <Button
+                  type='submit'
+                  onClick={handleSubmit(onSubmit)}
+                  orientation='right'
+                >
+                  Registrera
                 </Button>
               </div>
             </form>
