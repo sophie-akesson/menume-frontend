@@ -42,17 +42,17 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Login</h1>
+      <h1 className={styles.heading}>Logga in</h1>
       <Box halfWidth>
         <div className={styles.register}>
-          <p>{`Don't have an account yet?`}</p>
+          <p>{`Inget konto?`}</p>
           <Link href='/register'>
-            <a>Register here.</a>
+            <a>Registrera dig här.</a>
           </Link>
         </div>
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
           <div className='fieldGroup'>
-            <label htmlFor='email'>Email:</label>
+            <label htmlFor='email'>Mailadress:</label>
             <input
               {...register('identifier', {
                 required: 'Obligatorisk',
@@ -62,7 +62,7 @@ const LoginForm = () => {
             />
           </div>
           <div className='fieldGroup'>
-            <label htmlFor='password'>Password:</label>
+            <label htmlFor='password'>Lösenord:</label>
             <input
               {...register('password', {
                 required: 'Obligatorisk',
@@ -73,18 +73,25 @@ const LoginForm = () => {
           </div>
           <div className={styles.forgotPassword}>
             <Link href='/forgot-password'>
-              <a>Forgot password?</a>
+              <a>Glömt lösenordet?</a>
             </Link>
           </div>
           {status ? <span className={styles.error}>{status}</span> : null}
-          <Button onClick={handleSubmit(onSubmit)}>Login</Button>
+          <Button type='submit' onClick={handleSubmit(onSubmit)}>
+            Logga in
+          </Button>
         </form>
-        <span className={styles.span}>Or login with:</span>
+        <span className={styles.span}>Eller logga in med:</span>
         <div className='buttonWrapper'>
-          <Button onClick={() => loginViaProvider('google')} orientation='left'>
+          <Button
+            type='button'
+            onClick={() => loginViaProvider('google')}
+            orientation='left'
+          >
             Google
           </Button>
           <Button
+            type='button'
             onClick={() => loginViaProvider('twitch')}
             orientation='right'
           >

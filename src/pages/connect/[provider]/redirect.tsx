@@ -44,7 +44,9 @@ const Redirect: NextPage = () => {
           <Box halfWidth>
             <p>We&apos;re sorry, we couldn&apos;t log you in.</p>
             <span>{status}</span>
-            <Button onClick={backToStartPage}>Back to start page</Button>
+            <Button type='button' onClick={backToStartPage}>
+              Back to start page
+            </Button>
           </Box>
         </>
       ) : (

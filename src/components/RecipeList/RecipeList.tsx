@@ -8,7 +8,9 @@ const RecipeList = ({ recipes, showAddRecipeForm }: RecipeListProps) => {
   return (
     <>
       <h1>Dina recept</h1>
-      <Button onClick={showAddRecipeForm}>Lägg till recept</Button>
+      <Button type='button' onClick={showAddRecipeForm}>
+        Lägg till recept
+      </Button>
       <div className={styles.recipesWrapper}>
         {recipes.map(recipe => (
           <Box key={recipe.id} width='var(--size335)'>
@@ -17,8 +19,12 @@ const RecipeList = ({ recipes, showAddRecipeForm }: RecipeListProps) => {
               <Cross />
             </div>
             <div className='buttonWrapper'>
-              <Button orientation='left'>Visa</Button>
-              <Button orientation='right'>Ändra</Button>
+              <Button type='button' orientation='left'>
+                Visa
+              </Button>
+              <Button type='button' orientation='right'>
+                Ändra
+              </Button>
             </div>
           </Box>
         ))}

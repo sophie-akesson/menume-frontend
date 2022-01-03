@@ -45,14 +45,14 @@ const ResetPasswordForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Reset password</h1>
+      <h1 className={styles.heading}>Återställ lösenord</h1>
       <Box halfWidth>
         <form
           className={styles.resetPasswordForm}
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className='fieldGroup'>
-            <label htmlFor='password'>Enter new password:</label>
+            <label htmlFor='password'>Nytt lösenord:</label>
             <input
               {...register('password', {
                 required: 'Obligatorisk',
@@ -68,7 +68,7 @@ const ResetPasswordForm = () => {
             />
           </div>
           <div className='fieldGroup'>
-            <label htmlFor='confirmPassword'>Confirm new password:</label>
+            <label htmlFor='confirmPassword'>Bekräfta nytt lösenord:</label>
             <input
               {...register('confirmPassword', {
                 validate: (value: string) => value === watch('password'),
@@ -85,7 +85,9 @@ const ResetPasswordForm = () => {
               <span className={styles.error}>{status}</span>
             )}
           </div>
-          <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+          <Button type='submit' onClick={handleSubmit(onSubmit)}>
+            Spara
+          </Button>
         </form>
       </Box>
     </>
