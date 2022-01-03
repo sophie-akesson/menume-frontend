@@ -4,7 +4,7 @@ import Button from '@components/Button';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
-import { submittedDataProps } from './types';
+import { AddRecipeFormProps, submittedDataProps } from './types';
 
 const defaultValues = {
   name: '',
@@ -13,7 +13,7 @@ const defaultValues = {
   description: '',
 };
 
-const AddRecipeForm = token => {
+const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
   const {
     control,
     register,
@@ -114,8 +114,9 @@ const AddRecipeForm = token => {
               register={register}
               errors={errors}
             />
+            {status && <span className={styles.error}>{status}</span>}
             <div className='buttonWrapper'>
-              <Button onClick={() => console.log('hej')} orientation='left'>
+              <Button onClick={showAddRecipeForm} orientation='left'>
                 Avbryt
               </Button>
               <Button onClick={handleSubmit(onSubmit)} orientation='right'>

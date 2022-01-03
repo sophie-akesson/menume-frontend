@@ -44,6 +44,7 @@ body {
   --size50: 3.125rem;
   --size60: 3.75rem;
   --size70: 4.375rem;
+  --size335: 20.9375rem;
 
   --main-padding: var(--size20);
   --box-padding: var(--size20);
@@ -186,22 +187,5 @@ span {
     label {
       width: 100%;
     }
-  }
-}
-
-select {
-  background: var(--color-button);
-  border-radius: var(--button-border-radius);
-  color: var(--color-button-text);
-  border: 0;
-  font-weight: 500;
-  font-size: var(--size15);
-  padding: var(--button-padding);
-  font-family: var(--main-font);
-  box-shadow: var(--button-shadow);
-  cursor: pointer;
-
-  option {
-    background: var(--color-accent);
   }
 }
