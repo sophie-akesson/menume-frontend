@@ -1,9 +1,11 @@
+import nookies from 'nookies';
 import AddRecipeForm from '@components/AddRecipeForm';
 import Layout from '@components/Layout';
 import LoginForm from '@components/LoginForm';
 import RecipeList from '@components/RecipeList';
-import nookies from 'nookies';
 import { useState } from 'react';
+import getRecipes from '@lib/getRecipes';
+import getUser from '@lib/getUser';
 
 const Recipes = ({ user, token, recipes }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
@@ -32,45 +34,18 @@ const Recipes = ({ user, token, recipes }) => {
 };
 
 export const getServerSideProps = async ctx => {
-  const cookies = nookies.get(ctx);
   let user = null;
   let token = null;
-  let recipes = null;
+  const cookies = nookies.get(ctx);
 
-  if (cookies?.jwt) {
-    try {
-      const userResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.jwt}`,
-          },
-        }
-      );
+  const UserResponse = await getUser(cookies);
 
-      const userData = await userResponse.json();
-
-      user = userData;
-      token = cookies.jwt;
-
-      const RecipeResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/recipes?author.username=${user.username}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      recipes = await RecipeResponse.json();
-
-      if (RecipeResponse.status != 200) throw new Error();
-    } catch (error) {
-      console.log(error);
-    }
+  if (UserResponse) {
+    user = UserResponse.user;
+    token = UserResponse.token;
   }
+
+  const recipes = await getRecipes(user.username, token);
 
   return {
     props: {

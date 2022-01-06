@@ -41,15 +41,15 @@ const Ingredients = ({ control, register, errors }) => {
               <input
                 {...register(`ingredients.${index}.amount`, {
                   required: true,
-                  min: 0,
-                  max: 1000,
+                  pattern: /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/,
                 })}
-                type='number'
+                type='text'
                 id='amount'
               />
               {errors?.ingredients?.[index]?.amount && (
                 <span className={styles.error}>
-                  En siffra måste vara ifylld.
+                  En giltig siffra måste vara ifylld som är över 0, decimaltal
+                  accepteras också (exempelvis 0.5).
                 </span>
               )}
             </div>
@@ -59,7 +59,7 @@ const Ingredients = ({ control, register, errors }) => {
               {errors?.ingredients?.[index]?.metric && (
                 <span className={styles.error}>Du måste välja en enhet.</span>
               )}
-              {index != 0 ? (
+              {fields.length > 1 ? (
                 <Button type='button' onClick={() => remove(index)}>
                   Ta bort ingrediens
                 </Button>
