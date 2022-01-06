@@ -1,44 +1,61 @@
+import nookies from 'nookies';
 import WeeklyMenu from '@components/WeeklyMenu';
 import LoginForm from '@components/LoginForm';
 import Layout from '@components/Layout';
-import nookies from 'nookies';
+import getUser from '@lib/getUser';
+import getMenu from '@lib/getMenu';
+import Box from '@components/Box';
+import Button from '@components/Button';
+import router from 'next/router';
 
-const Home = ({ user }) => {
+const Home = ({ user, menu }) => {
   const { username } = user || {};
 
   return (
     <Layout isLoggedIn={user ? true : false}>
-      {user ? <WeeklyMenu name={username} /> : <LoginForm />}
+      {!user && <LoginForm />}
+      {user && typeof menu === 'string' && (
+        <>
+          <h1>Ingen meny</h1>
+          <Box>
+            <p>{menu}</p>
+            <div>
+              <Button
+                type='button'
+                onClick={() => {
+                  router.replace('/recipes');
+                }}
+              >
+                Mina recept
+              </Button>
+            </div>
+          </Box>
+        </>
+      )}
+      {user && typeof menu !== 'string' && <WeeklyMenu name={username} />}
     </Layout>
   );
 };
 
 export const getServerSideProps = async ctx => {
-  const cookies = nookies.get(ctx);
   let user = null;
+  let menu = null;
+  let token = null;
+  const cookies = nookies.get(ctx);
 
-  if (cookies?.jwt) {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.jwt}`,
-          },
-        }
-      );
+  const UserResponse = await getUser(cookies);
 
-      const data = await response.json();
-
-      user = data;
-    } catch (error) {
-      console.log(error);
-    }
+  if (UserResponse) {
+    user = UserResponse.user;
+    token = UserResponse.token;
   }
+
+  menu = await getMenu(UserResponse.token, user.username);
 
   return {
     props: {
       user,
+      menu,
     },
   };
 };

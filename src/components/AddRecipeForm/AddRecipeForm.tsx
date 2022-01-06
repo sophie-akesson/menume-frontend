@@ -17,6 +17,7 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
@@ -44,9 +45,10 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
         throw new Error(data.error);
       }
 
+      reset(defaultValues);
       setIsAdded(true);
     } catch (error) {
-      setStatus('Det gick inte att registrera din användare. Försök igen.');
+      setStatus('Det gick inte att registrera ditt recept. Försök igen.');
     }
   };
 
@@ -55,7 +57,27 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
       <h1>Nytt recept</h1>
       <Box>
         {isAdded ? (
-          <p>Receptet är tillagt!</p>
+          <>
+            <h2>Receptet är tillagt!</h2>
+            <div className='buttonWrapper'>
+              <Button
+                type='button'
+                onClick={showAddRecipeForm}
+                orientation='left'
+              >
+                Mina recept
+              </Button>
+              <Button
+                type='button'
+                onClick={() => {
+                  setIsAdded(false);
+                }}
+                orientation='right'
+              >
+                Lägg till recept
+              </Button>
+            </div>
+          </>
         ) : (
           <form
             className={styles.addRecipeForm}
@@ -84,8 +106,9 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
                   {...register('servings', {
                     required: true,
                     min: 1,
+                    pattern: /^[1-9]*$/,
                   })}
-                  type='number'
+                  type='text'
                   id='servings'
                 />
                 {errors.servings && (

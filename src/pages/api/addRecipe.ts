@@ -6,11 +6,11 @@ const addRecipe = async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: name,
-        servings: servings,
+        servings: parseInt(servings),
         ingredients: ingredients,
         description: description,
       }),

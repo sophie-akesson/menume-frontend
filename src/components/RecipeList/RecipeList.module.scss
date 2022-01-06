@@ -12,12 +12,18 @@
   .recipeRow {
     display: flex;
     justify-content: space-between;
+    min-height: var(--size100);
 
-    svg:hover {
-      cursor: pointer;
+    svg {
+      margin-left: var(--size20);
+      min-width: var(--size25);
 
-      path:first-child {
-        fill: var(--color-accent);
+      &:hover {
+        cursor: pointer;
+
+        path:first-child {
+          fill: var(--color-accent);
+        }
       }
     }
   }

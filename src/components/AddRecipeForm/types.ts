@@ -7,7 +7,7 @@ export interface AddRecipeFormProps {
 
 export interface submittedDataProps {
   name: string;
-  servings: number;
+  servings: string;
   ingredients: [
     {
       amount: number;
