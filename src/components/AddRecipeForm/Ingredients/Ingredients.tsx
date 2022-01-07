@@ -1,8 +1,8 @@
 import styles from './Ingredients.module.scss';
 import { useFieldArray } from 'react-hook-form';
 import Button from '@components/Button';
-import CategoryOptions from './CategoryOptions';
-import MetricOptions from './MetricOptions';
+import MetricOptions from '../MetricOptions';
+import CategoryOptions from '../CategoryOptions';
 
 const Ingredients = ({ control, register, errors }) => {
   const { fields, append, remove } = useFieldArray({

@@ -1,11 +1,15 @@
-const getMenu = async token => {
+const postMenu = async (token, date, recipe) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menus`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        date: date.toUTCString(),
+        recipe: recipe,
+      }),
     });
 
     if (response.status != 200) throw new Error();
@@ -18,4 +22,4 @@ const getMenu = async token => {
   }
 };
 
-export default getMenu;
+export default postMenu;

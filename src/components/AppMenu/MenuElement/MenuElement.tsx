@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import logout from './logout';
+import logout from '../logout';
 import styles from './MenuElement.module.scss';
-import { MenuElementProps } from './types';
+import { MenuElementProps } from '../types';
 
 const MenuElement = ({ isLoggedIn, showMenu, className }: MenuElementProps) => {
   return (
