@@ -1,0 +1,10 @@
+.menuWrapper {
+  display: grid;
+  gap: var(--size20);
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    gap: var(--size70);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

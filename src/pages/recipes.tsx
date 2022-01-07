@@ -36,6 +36,7 @@ const Recipes = ({ user, token, recipes }) => {
 export const getServerSideProps = async ctx => {
   let user = null;
   let token = null;
+  let recipes = null;
   const cookies = nookies.get(ctx);
 
   const UserResponse = await getUser(cookies);
@@ -43,9 +44,8 @@ export const getServerSideProps = async ctx => {
   if (UserResponse) {
     user = UserResponse.user;
     token = UserResponse.token;
+    recipes = await getRecipes(user.username, token);
   }
-
-  const recipes = await getRecipes(user.username, token);
 
   return {
     props: {
