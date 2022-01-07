@@ -3,12 +3,12 @@ import WeeklyMenu from '@components/WeeklyMenu';
 import LoginForm from '@components/LoginForm';
 import Layout from '@components/Layout';
 import getUser from '@lib/getUser';
-import getMenu from '@lib/getMenu';
 import Box from '@components/Box';
 import Button from '@components/Button';
 import router, { Router } from 'next/router';
 import Spinner from '@components/Spinner';
 import { useEffect, useState } from 'react';
+import generateMenu from '@lib/generateMenu';
 
 const Home = ({ user, menu }) => {
   const { username } = user || {};
@@ -16,11 +16,9 @@ const Home = ({ user, menu }) => {
 
   useEffect(() => {
     const start = () => {
-      console.log('start');
       setLoading(true);
     };
     const end = () => {
-      console.log('findished');
       setLoading(false);
     };
     Router.events.on('routeChangeStart', start);
@@ -63,17 +61,22 @@ const Home = ({ user, menu }) => {
 };
 
 export const getServerSideProps = async ctx => {
+  const cookies = nookies.get(ctx);
   let user = null;
   let menu = null;
   let token = null;
-  const cookies = nookies.get(ctx);
 
   const UserResponse = await getUser(cookies);
 
   if (UserResponse) {
     user = UserResponse.user;
     token = UserResponse.token;
-    menu = await getMenu(UserResponse.token, user.username);
+
+    try {
+      menu = await generateMenu(token, user.username);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return {

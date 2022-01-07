@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
 import { AddRecipeFormProps, submittedDataProps } from './types';
+import addRecipe from '@lib/addRecipe';
 
 const defaultValues = {
   name: '',
@@ -13,7 +14,11 @@ const defaultValues = {
   description: '',
 };
 
-const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
+const AddRecipeForm = ({
+  token,
+  showAddRecipeForm,
+  setRecipeList,
+}: AddRecipeFormProps) => {
   const {
     control,
     register,
@@ -26,25 +31,19 @@ const AddRecipeForm = ({ token, showAddRecipeForm }: AddRecipeFormProps) => {
 
   const onSubmit = async (formData: submittedDataProps) => {
     try {
-      const response = await fetch('/api/addRecipe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          servings: formData.servings,
-          ingredients: formData.ingredients,
-          description: formData.description,
-          token: token,
-        }),
-      });
+      const response = await addRecipe(
+        formData.name,
+        formData.servings,
+        formData.ingredients,
+        formData.description,
+        token
+      );
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error);
-      }
+      if (!response.ok) throw new Error();
 
+      const data = await response.json();
+
+      setRecipeList(data);
       reset(defaultValues);
       setIsAdded(true);
     } catch (error) {

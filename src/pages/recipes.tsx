@@ -12,14 +12,13 @@ import Spinner from '@components/Spinner';
 const Recipes = ({ user, token, recipes }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [recipeList, setRecipeList] = useState([]);
 
   useEffect(() => {
     const start = () => {
-      console.log('start');
       setLoading(true);
     };
     const end = () => {
-      console.log('findished');
       setLoading(false);
     };
     Router.events.on('routeChangeStart', start);
@@ -32,6 +31,10 @@ const Recipes = ({ user, token, recipes }) => {
     };
   }, []);
 
+  useEffect(() => {
+    setRecipeList(recipes);
+  }, [recipes]);
+
   const showAddRecipeFormFunction = () => {
     setShowAddRecipeForm(!showAddRecipeForm);
   };
@@ -41,7 +44,7 @@ const Recipes = ({ user, token, recipes }) => {
       {!loading && !user && <LoginForm />}
       {!loading && user && !showAddRecipeForm && (
         <RecipeList
-          recipes={recipes}
+          recipes={recipeList}
           showAddRecipeForm={showAddRecipeFormFunction}
         />
       )}
@@ -49,6 +52,7 @@ const Recipes = ({ user, token, recipes }) => {
         <AddRecipeForm
           showAddRecipeForm={showAddRecipeFormFunction}
           token={token}
+          setRecipeList={recipe => setRecipeList([...recipeList, recipe])}
         />
       )}
       {loading && <Spinner />}

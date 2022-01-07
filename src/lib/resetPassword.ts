@@ -1,6 +1,4 @@
-const resetPassword = async (req, res) => {
-  const { code, password, passwordConfirmation } = req.body;
-
+const resetPassword = async (code, password, passwordConfirmation) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
@@ -13,13 +11,13 @@ const resetPassword = async (req, res) => {
       }
     );
 
+    if (response.status != 200) throw new Error();
+
     const data = await response.json();
 
-    if (response.status != 200) throw new Error(data.message[0].messages[0].id);
-
-    res.status(200).end();
+    return data;
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    console.log(error);
   }
 };
 

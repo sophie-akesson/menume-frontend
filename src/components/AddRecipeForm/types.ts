@@ -3,6 +3,7 @@ export interface AddRecipeFormProps {
     token: string;
   };
   showAddRecipeForm(): void;
+  setRecipeList(updatedRecipes): void;
 }
 
 export interface submittedDataProps {

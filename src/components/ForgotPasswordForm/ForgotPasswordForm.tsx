@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import backToStartPage from '@utils/backToStartPage';
 import { formDataProps } from './types';
 import Box from '@components/Box';
+import forgotPassword from '@lib/forgotPassword';
 
 const ForgotPasswordForm = () => {
   const {
@@ -18,15 +19,7 @@ const ForgotPasswordForm = () => {
 
   const onSubmit = async (formData: formDataProps) => {
     try {
-      const response = await fetch('/api/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-        }),
-      });
+      const response = await forgotPassword(formData.email);
 
       if (!response.ok) {
         const data = await response.json();
