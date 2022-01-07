@@ -32,7 +32,9 @@ const Home = ({ user, menu }) => {
           </Box>
         </>
       )}
-      {user && typeof menu !== 'string' && <WeeklyMenu name={username} />}
+      {user && typeof menu !== 'string' && (
+        <WeeklyMenu name={username} menu={menu} />
+      )}
     </Layout>
   );
 };
@@ -48,9 +50,8 @@ export const getServerSideProps = async ctx => {
   if (UserResponse) {
     user = UserResponse.user;
     token = UserResponse.token;
+    menu = await getMenu(UserResponse.token, user.username);
   }
-
-  menu = await getMenu(UserResponse.token, user.username);
 
   return {
     props: {
