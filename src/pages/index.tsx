@@ -9,10 +9,15 @@ import router, { Router } from 'next/router';
 import Spinner from '@components/Spinner';
 import { useEffect, useState } from 'react';
 import generateMenu from '@lib/generateMenu';
+import { IRecipe } from '@interfaces/recipe';
+import Recipe from '@components/Recipe';
 
 const Home = ({ user, menu }) => {
   const { username } = user || {};
   const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
+  const [showRecipe, setShowRecipe] = useState(false);
+  const [recipe, setRecipe] = useState<IRecipe>();
 
   useEffect(() => {
     const start = () => {
@@ -30,6 +35,16 @@ const Home = ({ user, menu }) => {
       Router.events.off('routeChangeError', end);
     };
   }, []);
+
+  const showMenuFunction = () => {
+    setShowMenu(true);
+    setShowRecipe(false);
+  };
+
+  const showRecipeFunction = () => {
+    setShowRecipe(true);
+    setShowMenu(false);
+  };
 
   return (
     <Layout isLoggedIn={user ? true : false}>
@@ -52,8 +67,18 @@ const Home = ({ user, menu }) => {
           </Box>
         </>
       )}
-      {!loading && user && typeof menu !== 'string' && (
-        <WeeklyMenu name={username} menu={menu} />
+      {!loading && user && typeof menu !== 'string' && showMenu && (
+        <WeeklyMenu
+          name={username}
+          menu={menu}
+          setShowRecipe={recipe => {
+            showRecipeFunction();
+            setRecipe(recipe);
+          }}
+        />
+      )}
+      {!loading && user && typeof menu !== 'string' && showRecipe && (
+        <Recipe showList={showMenuFunction} recipe={recipe} />
       )}
       {loading && <Spinner />}
     </Layout>

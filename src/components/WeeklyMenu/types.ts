@@ -1,6 +1,7 @@
-import { Menu } from '@interfaces/menu';
+import { IMenu } from '@interfaces/menu';
 
 export interface WeeklyMenuProps {
   name: string;
-  menu: Menu[];
+  menu: IMenu[];
+  setShowRecipe(recipe): void;
 }

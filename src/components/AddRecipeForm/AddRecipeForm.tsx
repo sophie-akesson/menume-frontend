@@ -16,7 +16,7 @@ const defaultValues = {
 
 const AddRecipeForm = ({
   token,
-  showAddRecipeForm,
+  showRecipeListFunction,
   setRecipeList,
 }: AddRecipeFormProps) => {
   const {
@@ -61,7 +61,7 @@ const AddRecipeForm = ({
             <div className='buttonWrapper'>
               <Button
                 type='button'
-                onClick={showAddRecipeForm}
+                onClick={showRecipeListFunction}
                 orientation='left'
               >
                 Mina recept
@@ -143,7 +143,7 @@ const AddRecipeForm = ({
             <div className='buttonWrapper'>
               <Button
                 type='button'
-                onClick={showAddRecipeForm}
+                onClick={showRecipeListFunction}
                 orientation='left'
               >
                 Avbryt

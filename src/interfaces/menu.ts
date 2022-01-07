@@ -1,6 +1,6 @@
-import { Recipe } from './recipe';
+import { IRecipe } from './recipe';
 
-export interface Menu {
+export interface IMenu {
   date: string;
-  recipe: Recipe;
+  recipe: IRecipe;
 }

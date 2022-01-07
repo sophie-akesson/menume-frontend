@@ -8,11 +8,16 @@ import getRecipes from '@lib/getRecipes';
 import getUser from '@lib/getUser';
 import { Router } from 'next/router';
 import Spinner from '@components/Spinner';
+import Recipe from '@components/Recipe';
+import { IRecipe } from '@interfaces/recipe';
 
 const Recipes = ({ user, token, recipes }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
+  const [showRecipe, setShowRecipe] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [recipeList, setRecipeList] = useState([]);
+  const [recipeList, setRecipeList] = useState<IRecipe[]>([]);
+  const [showRecipeList, setShowRecipeList] = useState(true);
+  const [recipe, setRecipe] = useState<IRecipe>();
 
   useEffect(() => {
     const start = () => {
@@ -36,21 +41,42 @@ const Recipes = ({ user, token, recipes }) => {
   }, [recipes]);
 
   const showAddRecipeFormFunction = () => {
-    setShowAddRecipeForm(!showAddRecipeForm);
+    setShowAddRecipeForm(true);
+    setShowRecipe(false);
+    setShowRecipeList(false);
+  };
+
+  const showRecipeFunction = () => {
+    setShowRecipe(true);
+    setShowRecipeList(false);
+    setShowAddRecipeForm(false);
+  };
+
+  const showRecipeListFunction = () => {
+    setShowRecipe(false);
+    setShowRecipeList(true);
+    setShowAddRecipeForm(false);
   };
 
   return (
     <Layout isLoggedIn={user ? true : false}>
       {!loading && !user && <LoginForm />}
-      {!loading && user && !showAddRecipeForm && (
+      {!loading && user && showRecipeList && (
         <RecipeList
           recipes={recipeList}
           showAddRecipeForm={showAddRecipeFormFunction}
+          setShowRecipe={recipe => {
+            showRecipeFunction();
+            setRecipe(recipe);
+          }}
         />
       )}
-      {!loading && user && showAddRecipeForm && (
+      {!loading && user && showRecipe && (
+        <Recipe showList={showRecipeListFunction} recipe={recipe} />
+      )}
+      {!loading && user && showAddRecipeForm && !showRecipe && (
         <AddRecipeForm
-          showAddRecipeForm={showAddRecipeFormFunction}
+          showRecipeListFunction={showRecipeListFunction}
           token={token}
           setRecipeList={recipe => setRecipeList([...recipeList, recipe])}
         />
