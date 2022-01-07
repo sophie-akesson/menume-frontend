@@ -8,8 +8,8 @@ import { AddRecipeFormProps, submittedDataProps } from './types';
 
 const defaultValues = {
   name: '',
-  servings: null,
-  ingredients: [{ amount: null, metric: '', name: '', category: '' }],
+  servings: '',
+  ingredients: [{ amount: '', metric: '', name: '', category: '' }],
   description: '',
 };
 
