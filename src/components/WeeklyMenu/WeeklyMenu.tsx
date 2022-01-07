@@ -33,18 +33,22 @@ const getWeekday = (date: string) => {
   return day;
 };
 
-const WeeklyMenu = ({ name, menu }: WeeklyMenuProps) => {
+const WeeklyMenu = ({ name, menu, setShowRecipe }: WeeklyMenuProps) => {
   return (
     <>
       <h1>Välkommen {name}!</h1>
       <div className={styles.menuWrapper}>
-        {menu.map(menuItem => (
-          <Box key={menuItem.recipe.id} width='var(--size335)'>
-            <h2>{getWeekday(menuItem.date)}</h2>
-            <h3>{menuItem.recipe.name}</h3>
+        {menu.map(recipe => (
+          <Box key={recipe.recipe.id} width='var(--size335)'>
+            <h2>{getWeekday(recipe.date)}</h2>
+            <h3>{recipe.recipe.name}</h3>
             <div className='buttonWrapper'>
-              <Button type='button' orientation='left'>
-                Recept
+              <Button
+                type='button'
+                orientation='left'
+                onClick={() => setShowRecipe(recipe.recipe)}
+              >
+                Visa
               </Button>
               <Button type='button' orientation='right'>
                 Inköpslista

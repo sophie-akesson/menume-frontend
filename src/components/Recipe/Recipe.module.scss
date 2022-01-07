@@ -1,0 +1,14 @@
+.recipeWrapper {
+  width: 100%;
+  margin-top: var(--size35);
+
+  pre {
+    white-space: pre-wrap;
+    font-family: var(--main-font);
+  }
+
+  pre,
+  p {
+    margin: 0;
+  }
+}

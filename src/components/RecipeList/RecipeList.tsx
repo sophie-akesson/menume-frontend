@@ -4,7 +4,11 @@ import Button from '@components/Button';
 import Cross from '@assets/icons/cross.svg';
 import { RecipeListProps } from './types';
 
-const RecipeList = ({ recipes, showAddRecipeForm }: RecipeListProps) => {
+const RecipeList = ({
+  recipes,
+  showAddRecipeForm,
+  setShowRecipe,
+}: RecipeListProps) => {
   return (
     <>
       <h1>Dina recept</h1>
@@ -17,9 +21,14 @@ const RecipeList = ({ recipes, showAddRecipeForm }: RecipeListProps) => {
             <div className={styles.recipeRow}>
               <h2>{recipe.name}</h2>
               <Cross />
+              {console.log(recipe.description)}
             </div>
             <div className='buttonWrapper'>
-              <Button type='button' orientation='left'>
+              <Button
+                type='button'
+                orientation='left'
+                onClick={() => setShowRecipe(recipe)}
+              >
                 Visa
               </Button>
               <Button type='button' orientation='right'>

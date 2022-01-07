@@ -1,6 +1,7 @@
-import { Recipe } from '@interfaces/recipe';
+import { IRecipe } from '@interfaces/recipe';
 
 export interface RecipeListProps {
-  recipes: Recipe[];
+  recipes: IRecipe[];
   showAddRecipeForm(): void;
+  setShowRecipe(recipe): void;
 }

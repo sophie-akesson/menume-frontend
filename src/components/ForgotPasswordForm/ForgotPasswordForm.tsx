@@ -2,7 +2,6 @@ import styles from './ForgotPasswordForm.module.scss';
 import Button from '@components/Button';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import backToStartPage from '@utils/backToStartPage';
 import { formDataProps } from './types';
 import Box from '@components/Box';
