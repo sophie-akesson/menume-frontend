@@ -3,12 +3,34 @@ import AddRecipeForm from '@components/AddRecipeForm';
 import Layout from '@components/Layout';
 import LoginForm from '@components/LoginForm';
 import RecipeList from '@components/RecipeList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import getRecipes from '@lib/getRecipes';
 import getUser from '@lib/getUser';
+import { Router } from 'next/router';
+import Spinner from '@components/Spinner';
 
 const Recipes = ({ user, token, recipes }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const start = () => {
+      console.log('start');
+      setLoading(true);
+    };
+    const end = () => {
+      console.log('findished');
+      setLoading(false);
+    };
+    Router.events.on('routeChangeStart', start);
+    Router.events.on('routeChangeComplete', end);
+    Router.events.on('routeChangeError', end);
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
 
   const showAddRecipeFormFunction = () => {
     setShowAddRecipeForm(!showAddRecipeForm);
@@ -16,19 +38,20 @@ const Recipes = ({ user, token, recipes }) => {
 
   return (
     <Layout isLoggedIn={user ? true : false}>
-      {!user && <LoginForm />}
-      {user && !showAddRecipeForm && (
+      {!loading && !user && <LoginForm />}
+      {!loading && user && !showAddRecipeForm && (
         <RecipeList
           recipes={recipes}
           showAddRecipeForm={showAddRecipeFormFunction}
         />
       )}
-      {user && showAddRecipeForm && (
+      {!loading && user && showAddRecipeForm && (
         <AddRecipeForm
           showAddRecipeForm={showAddRecipeFormFunction}
           token={token}
         />
       )}
+      {loading && <Spinner />}
     </Layout>
   );
 };

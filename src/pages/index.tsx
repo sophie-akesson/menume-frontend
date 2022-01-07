@@ -6,15 +6,37 @@ import getUser from '@lib/getUser';
 import getMenu from '@lib/getMenu';
 import Box from '@components/Box';
 import Button from '@components/Button';
-import router from 'next/router';
+import router, { Router } from 'next/router';
+import Spinner from '@components/Spinner';
+import { useEffect, useState } from 'react';
 
 const Home = ({ user, menu }) => {
   const { username } = user || {};
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const start = () => {
+      console.log('start');
+      setLoading(true);
+    };
+    const end = () => {
+      console.log('findished');
+      setLoading(false);
+    };
+    Router.events.on('routeChangeStart', start);
+    Router.events.on('routeChangeComplete', end);
+    Router.events.on('routeChangeError', end);
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
 
   return (
     <Layout isLoggedIn={user ? true : false}>
-      {!user && <LoginForm />}
-      {user && typeof menu === 'string' && (
+      {!loading && !user && <LoginForm />}
+      {!loading && user && typeof menu === 'string' && (
         <>
           <h1>Ingen meny</h1>
           <Box>
@@ -32,9 +54,10 @@ const Home = ({ user, menu }) => {
           </Box>
         </>
       )}
-      {user && typeof menu !== 'string' && (
+      {!loading && user && typeof menu !== 'string' && (
         <WeeklyMenu name={username} menu={menu} />
       )}
+      {loading && <Spinner />}
     </Layout>
   );
 };
