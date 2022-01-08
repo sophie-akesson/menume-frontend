@@ -21,7 +21,6 @@ const RecipeList = ({
             <div className={styles.recipeRow}>
               <h2>{recipe.name}</h2>
               <Cross />
-              {console.log(recipe.description)}
             </div>
             <div className='buttonWrapper'>
               <Button

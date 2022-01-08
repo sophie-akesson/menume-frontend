@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
 import { AddRecipeFormProps, submittedDataProps } from './types';
-import addRecipe from '@lib/addRecipe';
+import postRecipe from '@lib/postRecipe';
 
 const defaultValues = {
   name: '',
@@ -31,7 +31,7 @@ const AddRecipeForm = ({
 
   const onSubmit = async (formData: submittedDataProps) => {
     try {
-      const response = await addRecipe(
+      const response = await postRecipe(
         formData.name,
         formData.servings,
         formData.ingredients,
@@ -39,7 +39,9 @@ const AddRecipeForm = ({
         token
       );
 
-      if (!response.ok) throw new Error();
+      console.log(response);
+
+      if (response.status != 200) throw new Error();
 
       const data = await response.json();
 
