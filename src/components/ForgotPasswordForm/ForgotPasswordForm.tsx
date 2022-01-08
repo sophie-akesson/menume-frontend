@@ -20,10 +20,7 @@ const ForgotPasswordForm = () => {
     try {
       const response = await forgotPassword(formData.email);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error);
-      }
+      if (!response.ok) throw new Error();
 
       setIsSent(true);
     } catch (error) {

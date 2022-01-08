@@ -1,4 +1,4 @@
-const addRecipe = async (name, servings, ingredients, description, token) => {
+const postRecipe = async (name, servings, ingredients, description, token) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
       method: 'POST',
@@ -14,14 +14,10 @@ const addRecipe = async (name, servings, ingredients, description, token) => {
       }),
     });
 
-    if (response.status != 200) throw new Error();
-
-    const data = await response.json();
-
-    return data;
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export default addRecipe;
+export default postRecipe;
