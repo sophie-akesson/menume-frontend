@@ -1,8 +1,16 @@
-const consolidateGroceries = menu => {
+const extractIngredients = menu => {
   //Grab ingredients only
   const ingredientArray = menu.reduce((a, recipe) => {
     recipe.recipe.ingredients.forEach(item => {
-      a.push(item);
+      const ingredientObject = {
+        name: item.name,
+        category: item.category,
+        amount: item.amount,
+        metric: item.metric,
+        recipe: recipe.recipe.id,
+        checked: item.checked ? item.checked : false,
+      };
+      a.push(ingredientObject);
     });
     return a;
   }, []);
@@ -38,4 +46,4 @@ const consolidateGroceries = menu => {
   return uniqueIngredients;
 };
 
-export default consolidateGroceries;
+export default extractIngredients;

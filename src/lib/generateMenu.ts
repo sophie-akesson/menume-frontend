@@ -47,13 +47,18 @@ const createMenu = async (username, token, menu) => {
 
   const recipes = await getRecipes(username, token);
 
-  const shuffeledRecipes = shuffleRecipes(recipes);
+  const recipeIds = recipes.reduce((a, recipe) => {
+    a.push(recipe.id);
+    return a;
+  }, []);
+
+  const shuffeledRecipes = shuffleRecipes(recipeIds);
 
   if (menu.length) {
     await deleteMenu(token, username);
 
     recipesToPost = shuffeledRecipes.filter(recipe => {
-      menu.includes(!recipe.recipe.name);
+      menu.includes(!recipe.recipe);
     });
   } else {
     recipesToPost = shuffeledRecipes;
@@ -61,14 +66,15 @@ const createMenu = async (username, token, menu) => {
 
   const menuForSevenDays = recipesToPost.slice(0, 7);
 
-  //Post each item to Strapi along with a date starting on the last monday
-  //..or today if it is a monday today.
-  //Why in a for loop? Strapi does not support bulk POSTing
+  // Post each item to Strapi along with a date starting on the last monday
+  // ..or today if it is a monday today.
+  // Why in a for loop? Strapi does not support bulk POSTing
   for (let i = 0; i < menuForSevenDays.length; i++) {
     const date = addDays(monday, i);
-    const createdMenuItem = await postMenu(token, date, menuForSevenDays[i]);
-    createdMenu.push(menuForSevenDays[i]);
+    await postMenu(token, date, menuForSevenDays[i]);
   }
+
+  createdMenu = await getMenu(token);
 
   return createdMenu;
 };

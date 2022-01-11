@@ -9,6 +9,7 @@ export interface IRecipe {
       amount: string;
       category: string;
       metric: string;
+      checked?: boolean;
     }
   ];
   published_at?: string;
