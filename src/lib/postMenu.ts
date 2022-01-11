@@ -7,7 +7,7 @@ const postMenu = async (token, date, recipe) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        date: date.toUTCString(),
+        date: date,
         recipe: recipe,
       }),
     });

@@ -1,6 +1,6 @@
 import countRecipes from './countRecipes';
 import getRecipes from './getRecipes';
-import { previousMonday, isMonday, addDays, parseISO } from 'date-fns';
+import { previousMonday, isMonday, addDays, parseISO, format } from 'date-fns';
 import getMenu from './getMenu';
 import deleteMenu from './deleteMenu';
 import postMenu from './postMenu';
@@ -21,9 +21,16 @@ const generateMenu = async (token, username) => {
     //See if we should generate a menu for this week by checking for dates
     shouldGenerateMenu = currentMenu.some(
       recipe =>
-        parseISO(recipe.date) < previousMonday(new Date()) ||
-        isMonday(new Date())
+        format(parseISO(recipe.date), 'yyyy-MM-dd') <
+        format(previousMonday(new Date()), 'yyyy-MM-dd')
     );
+
+    if (
+      isMonday(new Date()) &&
+      format(parseISO(currentMenu[0].date), 'yyyy-MM-dd') !=
+        format(new Date(), 'yyyy-MM-dd')
+    )
+      shouldGenerateMenu = true;
   }
 
   if (!shouldGenerateMenu) return currentMenu;
@@ -46,7 +53,7 @@ const createMenu = async (username, token, menu) => {
     await deleteMenu(token, username);
 
     recipesToPost = shuffeledRecipes.filter(recipe => {
-      menu.includes(!recipe.name);
+      menu.includes(!recipe.recipe.name);
     });
   } else {
     recipesToPost = shuffeledRecipes;
@@ -59,7 +66,8 @@ const createMenu = async (username, token, menu) => {
   //Why in a for loop? Strapi does not support bulk POSTing
   for (let i = 0; i < menuForSevenDays.length; i++) {
     const date = addDays(monday, i);
-    createdMenu = await postMenu(token, date, menuForSevenDays[i]);
+    const createdMenuItem = await postMenu(token, date, menuForSevenDays[i]);
+    createdMenu.push(menuForSevenDays[i]);
   }
 
   return createdMenu;

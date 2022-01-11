@@ -39,8 +39,6 @@ const AddRecipeForm = ({
         token
       );
 
-      console.log(response);
-
       if (response.status != 200) throw new Error();
 
       const data = await response.json();

@@ -11,4 +11,19 @@ export interface IRecipe {
       metric: string;
     }
   ];
+  published_at?: string;
+  created_at?: string;
+  author?: {
+    created_at?: string;
+    blocked?: null;
+    provider?: string;
+    role?: number;
+    username?: string;
+    updated_at?: string;
+    id?: number;
+    email?: string;
+    confirmed?: boolean;
+  };
+  updated_at?: string;
+  menu?: null;
 }
