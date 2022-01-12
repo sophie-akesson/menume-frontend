@@ -1,7 +1,7 @@
-const checkGroceries = async (recipe, ingredient, checked, token) => {
+const checkGrocery = async (id, token, checked) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/menus/${recipe}?ingredients=${ingredient}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${id}`,
       {
         method: 'PUT',
         headers: {
@@ -24,4 +24,4 @@ const checkGroceries = async (recipe, ingredient, checked, token) => {
   }
 };
 
-export default checkGroceries;
+export default checkGrocery;

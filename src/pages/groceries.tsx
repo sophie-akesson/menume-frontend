@@ -32,7 +32,7 @@ const About = ({ user, menu, token }) => {
   }, []);
 
   return (
-    <Layout isLoggedIn={false}>
+    <Layout isLoggedIn={user ? true : false}>
       {!loading && !user && <LoginForm />}
       {!loading && user && <GroceryList menu={menu} token={token} />}
       {loading && <Spinner />}

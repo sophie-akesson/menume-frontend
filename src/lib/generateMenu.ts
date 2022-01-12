@@ -13,7 +13,7 @@ const generateMenu = async (token, username) => {
   if (numberOfRecipes < 14)
     return `Du måste lägga in fler recept innan vi kan ge dig din meny. Just nu har du ${numberOfRecipes} av minimum 14 recept.`;
 
-  const currentMenu = await getMenu(token);
+  const currentMenu = await getMenu(token, username);
 
   if (!currentMenu.length) {
     shouldGenerateMenu = true;
@@ -74,7 +74,7 @@ const createMenu = async (username, token, menu) => {
     await postMenu(token, date, menuForSevenDays[i]);
   }
 
-  createdMenu = await getMenu(token);
+  createdMenu = await getMenu(token, username);
 
   return createdMenu;
 };

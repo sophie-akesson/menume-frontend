@@ -1,7 +1,7 @@
 const deleteMenu = async (token, username) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/menus?recipe.author.name=${username}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/menus?author=${username}`,
       {
         method: 'DELETE',
         headers: {

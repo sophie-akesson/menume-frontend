@@ -1,0 +1,57 @@
+.selectWrapper {
+  span {
+    display: inline;
+  }
+
+  .arrow::before {
+    content: '';
+    width: 0;
+    height: 0;
+    top: 50%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid white;
+  }
+
+  input[type='radio'] {
+    counter-increment: radios;
+    appearance: none;
+    display: none;
+    color: white;
+  }
+
+  input[type='radio']:checked {
+    display: inline;
+    background-color: transparent;
+  }
+
+  input[type='radio']:after {
+    content: attr(title);
+    display: inline;
+    font-size: 1rem;
+  }
+
+  .list {
+    width: max-content;
+    top: 0;
+    position: relative;
+    counter-reset: labels;
+    list-style-type: none;
+    background: var(--color-button);
+    margin: 0;
+    padding: var(--size20);
+    border-bottom-left-radius: var(--box-border-radius);
+    border-bottom-right-radius: var(--box-border-radius);
+
+    li:last-child {
+      margin: 0;
+    }
+  }
+
+  label {
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+  }
+}

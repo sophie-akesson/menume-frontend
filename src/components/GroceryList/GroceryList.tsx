@@ -2,15 +2,15 @@ import Box from '@components/Box';
 import checkGroceries from '@lib/checkGroceries';
 import { useEffect, useState } from 'react';
 import extractIngredients from './extractIngredients';
-import consolidateGroceries from './extractIngredients';
+import SelectRecipe from './SelectRecipe';
 import { GroceryListProps } from './types';
 
 const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
   const [groceries, setGroceries] = useState([]);
 
-  const checkBoxOnChange = async (recipe, ingredient, checked) => {
+  const checkBoxOnChange = async (event, id) => {
     try {
-      const response = await checkGroceries(recipe, ingredient, checked, token);
+      const response = await checkGroceries(id, token, event.target.checked);
 
       if (response.status != 200) throw new Error();
     } catch (error) {
@@ -18,30 +18,18 @@ const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
     }
   };
 
-  const rearrangeData = () => {
-    return menu.map(recipe => {
-      const ingredients = recipe.recipe.ingredients.map((ingredient, index) => {
-        const ingredientObject = {
-          name: ingredient.name,
-          category: ingredient.category,
-          amount: ingredient.amount,
-          metric: ingredient.metric,
-          recipe: ingredient.checked ? ingredient.checked : false,
-        };
-        return ingredientObject;
-      });
-      return ingredients;
-    });
-  };
-
   useEffect(() => {
     setGroceries(extractIngredients(menu));
   }, [menu]);
 
-  const liElements = groceries.map((item, index) => (
-    <li key={`${item.name}${index}`}>
-      <input type='checkbox' id={`${item.name}${index}`} />
-      <label htmlFor={`${item.name}${index}`}>
+  const liElements = groceries.map(item => (
+    <li key={item.id}>
+      <input
+        type='checkbox'
+        id={item.id}
+        onChange={event => checkBoxOnChange(event, item.id)}
+      />
+      <label htmlFor={item.id}>
         {item.amount} {item.metric} {item.name}
       </label>
     </li>
@@ -51,7 +39,7 @@ const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
     <>
       <h1>Inköpslista</h1>
       <Box>
-        Select element here
+        <SelectRecipe />
         <ul>{liElements}</ul>
       </Box>
     </>
