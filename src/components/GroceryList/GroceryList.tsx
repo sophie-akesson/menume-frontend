@@ -6,8 +6,15 @@ import extractIngredients from './extractIngredients';
 import SelectRecipe from './SelectRecipe';
 import { GroceryListProps } from './types';
 import { IRecipe } from '@interfaces/recipe';
+import Button from '@components/Button';
 
-const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
+const GroceryList = ({
+  menu,
+  recipe,
+  token,
+  backButton,
+  showList,
+}: GroceryListProps) => {
   const [groceries, setGroceries] = useState([]);
   const [recipeId, setRecipeId] = useState('');
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe>();
@@ -68,8 +75,13 @@ const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
   return (
     <>
       <h1>Inköpslista</h1>
-      <Box>
-        <div className={styles.groceryListWrapper}>
+      {backButton && (
+        <Button type='button' onClick={showList}>
+          Tillbaka
+        </Button>
+      )}
+      <div className={styles.groceryListWrapper}>
+        <Box>
           <SelectRecipe
             menu={menu}
             recipe={selectedRecipe}
@@ -77,8 +89,8 @@ const GroceryList = ({ menu, recipe, token }: GroceryListProps) => {
             resetRecipe={resetRecipe}
           />
           <ul className={styles.groceryListUl}>{menuLiElements}</ul>
-        </div>
-      </Box>
+        </Box>
+      </div>
     </>
   );
 };

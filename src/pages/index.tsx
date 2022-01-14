@@ -100,7 +100,13 @@ const Home = ({ user, menu, token }) => {
         <Recipe showList={showMenuFunction} recipe={recipe} />
       )}
       {!loading && user && typeof menu !== 'string' && showGroceryList && (
-        <GroceryList menu={menu} recipe={id} token={token} />
+        <GroceryList
+          menu={menu}
+          recipe={id}
+          token={token}
+          backButton
+          showList={showMenuFunction}
+        />
       )}
       {loading && <Spinner />}
     </Layout>

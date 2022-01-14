@@ -1,5 +1,5 @@
 import Button from '@components/Button';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './SelectRecipe.module.scss';
 import { SelectRecipeProps } from './types';
 
@@ -11,10 +11,27 @@ const SelectRecipe = ({
 }: SelectRecipeProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [buttonName, setButtonName] = useState('Alla recept');
+  const dropDownButton = useRef(null);
 
   useEffect(() => {
     if (recipe) setButtonName(recipe.name);
   }, [recipe]);
+
+  useEffect(() => {
+    const closeOpenMenus = event => {
+      if (
+        dropDownButton.current &&
+        showDropdown &&
+        !dropDownButton.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', closeOpenMenus);
+    return () => {
+      document.removeEventListener('mousedown', closeOpenMenus);
+    };
+  }, [dropDownButton, showDropdown]);
 
   const showDropdownFunction = existingClass => {
     if (showDropdown) return `${existingClass} ${styles.show}`;
@@ -26,6 +43,7 @@ const SelectRecipe = ({
       <button
         type='button'
         onClick={() => {
+          setShowDropdown(false);
           setRecipe(item.id);
         }}
       >
@@ -35,28 +53,31 @@ const SelectRecipe = ({
   ));
 
   return (
-    <div className={styles.selectWrapper}>
-      <div className={showDropdownFunction(null)}>
-        <Button type='button' onClick={() => setShowDropdown(!showDropdown)}>
-          {buttonName}
-          <span></span>
-        </Button>
+    <div ref={dropDownButton} className={styles.selectWrapper}>
+      <div className={styles.absoluteWrapper}>
+        <div className={showDropdownFunction(null)}>
+          <Button type='button' onClick={() => setShowDropdown(!showDropdown)}>
+            {buttonName}
+            <span></span>
+          </Button>
+        </div>
+        <ul className={showDropdownFunction(styles.list)}>
+          <li>
+            <button
+              type='button'
+              onClick={() => {
+                setShowDropdown(false);
+                setButtonName('Alla recept');
+                setRecipe('');
+                resetRecipe();
+              }}
+            >
+              Alla recept
+            </button>
+          </li>
+          {liElements}
+        </ul>
       </div>
-      <ul className={showDropdownFunction(styles.list)}>
-        <li>
-          <button
-            type='button'
-            onClick={() => {
-              setButtonName('Alla recept');
-              setRecipe('');
-              resetRecipe();
-            }}
-          >
-            Alla recept
-          </button>
-        </li>
-        {liElements}
-      </ul>
     </div>
   );
 };
