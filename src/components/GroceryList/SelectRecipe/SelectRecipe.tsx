@@ -1,42 +1,63 @@
 import Button from '@components/Button';
+import { useEffect, useState } from 'react';
 import styles from './SelectRecipe.module.scss';
+import { SelectRecipeProps } from './types';
 
-const SelectRecipe = () => {
+const SelectRecipe = ({
+  menu,
+  recipe,
+  setRecipe,
+  resetRecipe,
+}: SelectRecipeProps) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [buttonName, setButtonName] = useState('Alla recept');
+
+  useEffect(() => {
+    if (recipe) setButtonName(recipe.name);
+  }, [recipe]);
+
+  const showDropdownFunction = existingClass => {
+    if (showDropdown) return `${existingClass} ${styles.show}`;
+    else return existingClass;
+  };
+
+  const liElements = menu.map(item => (
+    <li key={item.id}>
+      <button
+        type='button'
+        onClick={() => {
+          setRecipe(item.id);
+        }}
+      >
+        {item.recipe.name}
+      </button>
+    </li>
+  ));
+
   return (
-    <>
-      <div className={styles.selectWrapper}>
-        <Button type='button'>
-          Alla recept
-          <span className={styles.arrow}></span>
+    <div className={styles.selectWrapper}>
+      <div className={showDropdownFunction(null)}>
+        <Button type='button' onClick={() => setShowDropdown(!showDropdown)}>
+          {buttonName}
+          <span></span>
         </Button>
       </div>
-      <ul className={styles.list}>
+      <ul className={showDropdownFunction(styles.list)}>
         <li>
-          <input type='radio' name='item' id='item1' title='Item 1' />
-          <label htmlFor='default'>Alla recept</label>
+          <button
+            type='button'
+            onClick={() => {
+              setButtonName('Alla recept');
+              setRecipe('');
+              resetRecipe();
+            }}
+          >
+            Alla recept
+          </button>
         </li>
-        <li>
-          <input type='radio' name='item' id='item1' title='Item 1' />
-          <label htmlFor='item1'>Item 1</label>
-        </li>
-        <li>
-          <input type='radio' name='item' id='item2' title='Item 2' />
-          <label htmlFor='item2'>Item 2</label>
-        </li>
-        <li>
-          <input type='radio' name='item' id='item3' title='Item 3' />
-          <label htmlFor='item3'>Item 3</label>
-        </li>
-        <li>
-          <input type='radio' name='item' id='item4' title='Item 4' />
-          <label htmlFor='item4'>Item 4</label>
-        </li>
-        <li>
-          <input type='radio' name='item' id='item5' title='Item 5' />
-          <label htmlFor='item5'>Item 5</label>
-        </li>
+        {liElements}
       </ul>
-    </>
+    </div>
   );
 };
 

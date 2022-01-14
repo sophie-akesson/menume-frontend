@@ -1,0 +1,90 @@
+.groceryListWrapper {
+  .groceryListUl {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: var(--size20);
+      border-bottom: 1px solid var(--color-line);
+      margin: 0;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      input[type='checkbox'] {
+        opacity: 0;
+        width: 0;
+      }
+
+      input[type='checkbox']:hover {
+        cursor: pointer;
+      }
+
+      input[type='checkbox'] ~ .customCheckBox {
+        background: var(--color-line);
+      }
+
+      input[type='checkbox']:hover ~ .customCheckBox,
+      input[type='checkbox'] ~ .customCheckBox:hover,
+      input[type='checkbox']:focus ~ .customCheckBox {
+        background: var(--color-input-background-focus);
+        cursor: pointer;
+      }
+
+      input[type='checkbox']:checked ~ .customCheckBox {
+        background: var(--color-accent);
+      }
+
+      input[type='checkbox']:checked ~ .customCheckBox::after {
+        display: block;
+      }
+
+      label {
+        font-weight: 400;
+        font-size: var(--size15);
+        color: var(--color-text);
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .customCheckBox {
+        top: 2px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border: 0px solid var(--color-text);
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .customCheckBox:after {
+        box-sizing: unset;
+        content: '';
+        position: absolute;
+        display: none;
+      }
+    }
+
+    li .customCheckBox:after {
+      margin-bottom: 1px;
+      width: 3px;
+      height: 8px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}

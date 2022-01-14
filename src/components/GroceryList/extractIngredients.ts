@@ -1,11 +1,16 @@
 const extractIngredients = menu => {
+  let ingredientArray = [];
   //Grab ingredients only
-  const ingredientArray = menu.reduce((a, recipe) => {
-    recipe.recipe.ingredients.forEach(item => {
-      a.push(item);
-    });
-    return a;
-  }, []);
+  if (menu.length) {
+    ingredientArray = menu.reduce((a, recipe) => {
+      recipe.recipe.ingredients.forEach(item => {
+        a.push(item);
+      });
+      return a;
+    }, []);
+  } else {
+    ingredientArray = menu.recipe.ingredients;
+  }
 
   // Create new array and sum the ingredient if it has the same metric
   // let uniqueIngredients = [];
