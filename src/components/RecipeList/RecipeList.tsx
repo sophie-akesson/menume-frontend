@@ -16,10 +16,19 @@ const RecipeList = ({
   username,
 }: RecipeListProps) => {
   const [showDialog, setShowDialog] = useState({ show: false, id: 0 });
+  const [status, setStatus] = useState('');
 
   const removeRecipe = async (token, username, id) => {
+    setShowDialog({ show: false, id: id });
+
     const data = await deleteRecipe(token, username, id);
 
+    if (data.message) {
+      setStatus(data.message);
+      return setTimeout(() => setShowDialog({ show: false, id: 0 }), 5000);
+    }
+
+    setShowDialog({ show: false, id: 0 });
     setRecipeList(data);
   };
 
@@ -41,7 +50,11 @@ const RecipeList = ({
             ) : (
               <>
                 <div className={styles.recipeRow}>
-                  <h2>{recipe.name}</h2>
+                  {status && showDialog.id === recipe.id ? (
+                    <span className={styles.error}>{status}</span>
+                  ) : (
+                    <h2>{recipe.name}</h2>
+                  )}
                   <button
                     onClick={() => setShowDialog({ show: true, id: recipe.id })}
                   >

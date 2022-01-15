@@ -1,15 +1,8 @@
-import Box from '@components/Box';
 import Button from '@components/Button';
-import deleteRecipe from '@lib/deleteRecipe';
-import { useState } from 'react';
 import { RemoveDialogProps } from '.';
 import styles from './RemoveDialog.module.scss';
 
-const RemoveDialog = ({
-  id,
-  setShowDialog,
-  removeRecipe,
-}: RemoveDialogProps) => {
+const RemoveDialog = ({ setShowDialog, removeRecipe }: RemoveDialogProps) => {
   return (
     <>
       <div className={styles.dialogRow}>
@@ -20,7 +13,6 @@ const RemoveDialog = ({
           type='button'
           orientation='left'
           onClick={() => {
-            setShowDialog({ show: false, id: 0 });
             removeRecipe();
           }}
         >
