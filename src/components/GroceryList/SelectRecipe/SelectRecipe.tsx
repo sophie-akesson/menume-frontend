@@ -39,12 +39,12 @@ const SelectRecipe = ({
   };
 
   const liElements = menu.map(item => (
-    <li key={item.id}>
+    <li id={item.recipe.id.toString()} key={item.recipe.id}>
       <button
         type='button'
         onClick={() => {
           setShowDropdown(false);
-          setRecipe(item.id);
+          setRecipe(item.recipe.id);
         }}
       >
         {item.recipe.name}
@@ -68,7 +68,6 @@ const SelectRecipe = ({
               onClick={() => {
                 setShowDropdown(false);
                 setButtonName('Alla recept');
-                setRecipe('');
                 resetRecipe();
               }}
             >

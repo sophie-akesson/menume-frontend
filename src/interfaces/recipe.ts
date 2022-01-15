@@ -5,6 +5,7 @@ export interface IRecipe {
   description: string;
   ingredients: [
     {
+      id?: number;
       name: string;
       amount: string;
       category: string;

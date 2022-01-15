@@ -7,6 +7,7 @@ import SelectRecipe from './SelectRecipe';
 import { GroceryListProps } from './types';
 import { IRecipe } from '@interfaces/recipe';
 import Button from '@components/Button';
+import { IMenu } from '@interfaces/menu';
 
 const GroceryList = ({
   menu,
@@ -15,58 +16,97 @@ const GroceryList = ({
   backButton,
   showList,
 }: GroceryListProps) => {
-  const [groceries, setGroceries] = useState([]);
   const [recipeId, setRecipeId] = useState('');
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe>();
+  const [menuList, setMenuList] = useState<IMenu[]>([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const checkBoxOnChange = async (event, id) => {
-    for (let i = 0; i < groceries.length; i++) {
-      if (groceries[i].id === id) {
-        const newGroceries = [...groceries];
-        newGroceries[i] = {
-          ...groceries[i],
-          checked: !groceries[i].checked,
-        };
-        setGroceries(newGroceries);
+    for (let r = 0; r < menuList.length; r++) {
+      for (let i = 0; i < menuList[r].recipe.ingredients.length; i++) {
+        if (
+          (Array.isArray(id) &&
+            (menuList[r].recipe.ingredients[i].id === id[0] ||
+              menuList[r].recipe.ingredients[i].id === id[1])) ||
+          menuList[r].recipe.ingredients[i].id === id
+        ) {
+          const newGroceries = [...menuList];
+          newGroceries[r].recipe.ingredients[i] = {
+            ...newGroceries[r].recipe.ingredients[i],
+            checked: !newGroceries[r].recipe.ingredients[i].checked,
+          };
+          setMenuList(newGroceries);
+        }
       }
     }
-    await checkGroceries(id, token, event.target.checked);
+    if (Array.isArray(id)) {
+      id.forEach(
+        async ingredient =>
+          await checkGroceries(ingredient, token, event.target.checked)
+      );
+    } else {
+      await checkGroceries(id, token, event.target.checked);
+    }
   };
 
   const selectRecipe = id => {
     setRecipeId(id);
+    const foundRecipe = menu.find(item => item.recipe.id === parseInt(id));
+    setSelectedRecipe(foundRecipe.recipe);
   };
 
   const resetRecipe = () => {
+    setRecipeId('');
     setSelectedRecipe({ name: 'Alla recept' } as IRecipe);
-    setGroceries(extractIngredients(menu));
+  };
+
+  const flattenAndSortIngredients = () => {
+    if (recipeId) {
+      const foundRecipe = menu.find(
+        item => item.recipe.id === parseInt(recipeId)
+      );
+      setIngredients(extractIngredients(foundRecipe.recipe));
+    } else {
+      setIngredients(extractIngredients(menuList));
+    }
   };
 
   useEffect(() => {
-    setGroceries(extractIngredients(menu));
-
-    if (recipe) setRecipeId(recipe);
+    setMenuList(menu);
+    if (recipe) {
+      setRecipeId(recipe);
+      const foundRecipe = menu.find(
+        item => item.recipe.id === parseInt(recipe)
+      );
+      setSelectedRecipe(foundRecipe.recipe);
+    }
   }, [menu, recipe]);
 
   useEffect(() => {
-    menu.forEach(item => {
-      if (item.id === recipeId) {
-        setGroceries(extractIngredients(item));
-        setSelectedRecipe(item.recipe);
-      }
-    });
-  }, [menu, recipeId]);
+    if (recipeId) {
+      const foundRecipe = menu.find(
+        item => item.recipe.id === parseInt(recipeId)
+      );
+      setIngredients(extractIngredients(foundRecipe.recipe));
+    } else {
+      const asyncFunction = async () => {
+        const ingredientList = await extractIngredients(menuList);
+        setIngredients(ingredientList);
+      };
+      asyncFunction();
+    }
+  }, [menu, menuList, recipeId]);
 
-  const menuLiElements = groceries.map(item => (
+  const ingredientLiElements = ingredients.map(item => (
     <li key={item.id}>
       <input
         type='checkbox'
-        id={item.id}
+        id={item.id.toString()}
         onChange={event => checkBoxOnChange(event, item.id)}
         checked={item.checked}
       />
       <div className={styles.customCheckBox}></div>
-      <label htmlFor={item.id}>
+      <label htmlFor={item.id.toString()}>
         {item.amount} {item.metric} {item.name}
       </label>
     </li>
@@ -88,7 +128,7 @@ const GroceryList = ({
             setRecipe={selectRecipe}
             resetRecipe={resetRecipe}
           />
-          <ul className={styles.groceryListUl}>{menuLiElements}</ul>
+          <ul className={styles.groceryListUl}>{ingredientLiElements}</ul>
         </Box>
       </div>
     </>

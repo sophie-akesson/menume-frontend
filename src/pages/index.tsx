@@ -55,7 +55,6 @@ const Home = ({ user, menu, token }) => {
   };
 
   const showGroceryListFunction = () => {
-    console.log(id);
     setShowRecipe(false);
     setShowMenu(false);
     setShowGroceryList(true);

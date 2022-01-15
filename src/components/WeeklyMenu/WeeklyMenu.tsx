@@ -58,7 +58,7 @@ const WeeklyMenu = ({
               <Button
                 type='button'
                 orientation='right'
-                onClick={() => setShowGroceryList(recipe.id)}
+                onClick={() => setShowGroceryList(recipe.recipe.id)}
               >
                 Inköpslista
               </Button>
