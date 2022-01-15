@@ -69,6 +69,12 @@ const Recipes = ({ user, token, recipes }) => {
             showRecipeFunction();
             setRecipe(recipe);
           }}
+          setRecipeList={recipe => {
+            const recipes = recipeList.filter(item => item.id !== recipe.id);
+            setRecipeList(recipes);
+          }}
+          token={token}
+          username={user.username}
         />
       )}
       {!loading && user && showRecipe && (
