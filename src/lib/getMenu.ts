@@ -1,12 +1,15 @@
-const getMenu = async token => {
+const getMenu = async (token, username) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menus`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/menus?author=${username}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.status != 200) throw new Error();
 

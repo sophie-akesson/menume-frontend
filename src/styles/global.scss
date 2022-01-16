@@ -30,6 +30,7 @@ body {
 :root {
   --size1: 0.0625rem;
   --size4: 0.25rem;
+  --size5: 0.3125rem;
   --size8: 0.5rem;
   --size10: 0.625rem;
   --size15: 0.9375rem;
@@ -57,7 +58,7 @@ body {
   }
 
   --box-border-radius: var(--size40);
-  --button-border-radius: var(--size40);
+  --button-border-radius: var(--size20);
   --input-border-radius: var(--size40);
 
   --box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);

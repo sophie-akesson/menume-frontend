@@ -33,7 +33,12 @@ const getWeekday = (date: string) => {
   return day;
 };
 
-const WeeklyMenu = ({ name, menu, setShowRecipe }: WeeklyMenuProps) => {
+const WeeklyMenu = ({
+  name,
+  menu,
+  setShowRecipe,
+  setShowGroceryList,
+}: WeeklyMenuProps) => {
   return (
     <>
       <h1>Välkommen {name}!</h1>
@@ -50,7 +55,11 @@ const WeeklyMenu = ({ name, menu, setShowRecipe }: WeeklyMenuProps) => {
               >
                 Visa
               </Button>
-              <Button type='button' orientation='right'>
+              <Button
+                type='button'
+                orientation='right'
+                onClick={() => setShowGroceryList(recipe.recipe.id)}
+              >
                 Inköpslista
               </Button>
             </div>

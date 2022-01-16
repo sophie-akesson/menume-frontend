@@ -1,13 +1,16 @@
-const deleteMenu = async (token, username) => {
+const checkGrocery = async (id, token, checked) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/menus?author=${username}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${id}`,
       {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          checked: checked,
+        }),
       }
     );
 
@@ -21,4 +24,4 @@ const deleteMenu = async (token, username) => {
   }
 };
 
-export default deleteMenu;
+export default checkGrocery;

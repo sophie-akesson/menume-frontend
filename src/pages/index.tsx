@@ -11,24 +11,30 @@ import { useEffect, useState } from 'react';
 import generateMenu from '@lib/generateMenu';
 import { IRecipe } from '@interfaces/recipe';
 import Recipe from '@components/Recipe';
+import GroceryList from '@components/GroceryList';
 
-const Home = ({ user, menu }) => {
+const Home = ({ user, menu, token }) => {
   const { username } = user || {};
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
   const [showRecipe, setShowRecipe] = useState(false);
+  const [showGroceryList, setShowGroceryList] = useState(false);
   const [recipe, setRecipe] = useState<IRecipe>();
+  const [id, setId] = useState('');
 
   useEffect(() => {
     const start = () => {
       setLoading(true);
     };
+
     const end = () => {
       setLoading(false);
     };
+
     Router.events.on('routeChangeStart', start);
     Router.events.on('routeChangeComplete', end);
     Router.events.on('routeChangeError', end);
+
     return () => {
       Router.events.off('routeChangeStart', start);
       Router.events.off('routeChangeComplete', end);
@@ -39,11 +45,19 @@ const Home = ({ user, menu }) => {
   const showMenuFunction = () => {
     setShowMenu(true);
     setShowRecipe(false);
+    setShowGroceryList(false);
   };
 
   const showRecipeFunction = () => {
     setShowRecipe(true);
     setShowMenu(false);
+    setShowGroceryList(false);
+  };
+
+  const showGroceryListFunction = () => {
+    setShowRecipe(false);
+    setShowMenu(false);
+    setShowGroceryList(true);
   };
 
   return (
@@ -72,13 +86,26 @@ const Home = ({ user, menu }) => {
           name={username}
           menu={menu}
           setShowRecipe={recipe => {
-            showRecipeFunction();
             setRecipe(recipe);
+            showRecipeFunction();
+          }}
+          setShowGroceryList={recipe => {
+            setId(recipe);
+            showGroceryListFunction();
           }}
         />
       )}
       {!loading && user && typeof menu !== 'string' && showRecipe && (
         <Recipe showList={showMenuFunction} recipe={recipe} />
+      )}
+      {!loading && user && typeof menu !== 'string' && showGroceryList && (
+        <GroceryList
+          menu={menu}
+          recipe={id}
+          token={token}
+          backButton
+          showList={showMenuFunction}
+        />
       )}
       {loading && <Spinner />}
     </Layout>
@@ -108,6 +135,7 @@ export const getServerSideProps = async ctx => {
     props: {
       user,
       menu,
+      token,
     },
   };
 };
