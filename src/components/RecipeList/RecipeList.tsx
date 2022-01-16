@@ -14,6 +14,7 @@ const RecipeList = ({
   setRecipeList,
   token,
   username,
+  setShowEditForm,
 }: RecipeListProps) => {
   const [showDialog, setShowDialog] = useState({ show: false, id: 0 });
   const [status, setStatus] = useState('');
@@ -40,7 +41,7 @@ const RecipeList = ({
       </Button>
       <div className={styles.recipesWrapper}>
         {recipes.map(recipe => (
-          <Box key={recipe.id} width='var(--size335)'>
+          <Box key={recipe.id} card>
             {showDialog.show && showDialog.id === recipe.id ? (
               <RemoveDialog
                 id={recipe.id}
@@ -69,7 +70,11 @@ const RecipeList = ({
                   >
                     Visa
                   </Button>
-                  <Button type='button' orientation='right'>
+                  <Button
+                    type='button'
+                    orientation='right'
+                    onClick={() => setShowEditForm(recipe)}
+                  >
                     Ändra
                   </Button>
                 </div>

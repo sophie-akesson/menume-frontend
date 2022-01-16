@@ -7,4 +7,5 @@ export interface RecipeListProps {
   setRecipeList(removedRecipe): void;
   token: string;
   username: string;
+  setShowEditForm(recipe): void;
 }
