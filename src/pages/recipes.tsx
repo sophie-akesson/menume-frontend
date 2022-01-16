@@ -10,6 +10,7 @@ import { Router } from 'next/router';
 import Spinner from '@components/Spinner';
 import Recipe from '@components/Recipe';
 import { IRecipe } from '@interfaces/recipe';
+import EditRecipeForm from '@components/EditRecipeForm';
 
 const Recipes = ({ user, token, recipes }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
@@ -17,6 +18,7 @@ const Recipes = ({ user, token, recipes }) => {
   const [loading, setLoading] = useState(false);
   const [recipeList, setRecipeList] = useState<IRecipe[]>([]);
   const [showRecipeList, setShowRecipeList] = useState(true);
+  const [showEditRecipeForm, setShowEditRecipeForm] = useState(false);
   const [recipe, setRecipe] = useState<IRecipe>();
 
   useEffect(() => {
@@ -41,21 +43,31 @@ const Recipes = ({ user, token, recipes }) => {
   }, [recipes]);
 
   const showAddRecipeFormFunction = () => {
-    setShowAddRecipeForm(true);
     setShowRecipe(false);
     setShowRecipeList(false);
+    setShowEditRecipeForm(false);
+    setShowAddRecipeForm(true);
   };
 
   const showRecipeFunction = () => {
-    setShowRecipe(true);
     setShowRecipeList(false);
     setShowAddRecipeForm(false);
+    setShowEditRecipeForm(false);
+    setShowRecipe(true);
   };
 
   const showRecipeListFunction = () => {
     setShowRecipe(false);
-    setShowRecipeList(true);
     setShowAddRecipeForm(false);
+    setShowEditRecipeForm(false);
+    setShowRecipeList(true);
+  };
+
+  const showEditRecipeFormFunction = () => {
+    setShowAddRecipeForm(false);
+    setShowRecipe(false);
+    setShowRecipeList(false);
+    setShowEditRecipeForm(true);
   };
 
   return (
@@ -69,16 +81,42 @@ const Recipes = ({ user, token, recipes }) => {
             showRecipeFunction();
             setRecipe(recipe);
           }}
+          setRecipeList={recipe => {
+            const recipes = recipeList.filter(item => item.id !== recipe.id);
+            setRecipeList(recipes);
+          }}
+          token={token}
+          username={user.username}
+          setShowEditForm={recipe => {
+            showEditRecipeFormFunction();
+            setRecipe(recipe);
+          }}
         />
       )}
       {!loading && user && showRecipe && (
         <Recipe showList={showRecipeListFunction} recipe={recipe} />
       )}
-      {!loading && user && showAddRecipeForm && !showRecipe && (
+      {!loading && user && showAddRecipeForm && (
         <AddRecipeForm
           showRecipeListFunction={showRecipeListFunction}
           token={token}
           setRecipeList={recipe => setRecipeList([...recipeList, recipe])}
+        />
+      )}
+      {!loading && user && showEditRecipeForm && (
+        <EditRecipeForm
+          showRecipeListFunction={showRecipeListFunction}
+          token={token}
+          recipe={recipe}
+          setRecipeList={recipe => {
+            const newRecipeList = [...recipeList];
+            for (let i = 0; i < newRecipeList.length; i++) {
+              if (newRecipeList[i].id === recipe.id) {
+                newRecipeList[i] = recipe;
+                setRecipeList(newRecipeList);
+              }
+            }
+          }}
         />
       )}
       {loading && <Spinner />}

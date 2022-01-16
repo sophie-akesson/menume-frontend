@@ -44,7 +44,7 @@ const WeeklyMenu = ({
       <h1>Välkommen {name}!</h1>
       <div className={styles.menuWrapper}>
         {menu.map(recipe => (
-          <Box key={recipe.recipe.id} width='var(--size335)'>
+          <Box key={recipe.recipe.id} card>
             <h2>{getWeekday(recipe.date)}</h2>
             <h3>{recipe.recipe.name}</h3>
             <div className='buttonWrapper'>

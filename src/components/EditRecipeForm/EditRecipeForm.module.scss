@@ -1,0 +1,22 @@
+.editRecipeForm {
+  .description {
+    padding: var(--size20);
+    resize: vertical;
+
+    @media (min-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  h2 {
+    margin-top: var(--size20);
+  }
+
+  h3 {
+    margin: 0 var(--size15);
+  }
+
+  .error {
+    color: red;
+  }
+}
