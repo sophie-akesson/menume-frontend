@@ -39,6 +39,8 @@ const GroceryList = ({
         }
       }
     }
+
+    //If id is an array we need to make multiple requests
     if (Array.isArray(id)) {
       id.forEach(
         async ingredient =>
@@ -47,55 +49,52 @@ const GroceryList = ({
     } else {
       await checkGroceries(id, token, event.target.checked);
     }
+
+    if (recipeId) {
+      const foundRecipe = menuList.find(
+        item => item.recipe.id === parseInt(recipeId)
+      );
+      setSelectedRecipe(foundRecipe.recipe);
+      const ingredientList = extractIngredients(foundRecipe.recipe);
+      setIngredients(ingredientList);
+    } else {
+      const ingredientList = extractIngredients(menuList);
+      setIngredients(ingredientList);
+    }
   };
 
   const selectRecipe = id => {
     setRecipeId(id);
-    const foundRecipe = menu.find(item => item.recipe.id === parseInt(id));
+    const foundRecipe = menuList.find(item => item.recipe.id === parseInt(id));
     setSelectedRecipe(foundRecipe.recipe);
+    const ingredientList = extractIngredients(foundRecipe.recipe);
+    setIngredients(ingredientList);
   };
 
   const resetRecipe = () => {
     setRecipeId('');
     setSelectedRecipe({ name: 'Alla recept' } as IRecipe);
-  };
-
-  const flattenAndSortIngredients = () => {
-    if (recipeId) {
-      const foundRecipe = menu.find(
-        item => item.recipe.id === parseInt(recipeId)
-      );
-      setIngredients(extractIngredients(foundRecipe.recipe));
-    } else {
-      setIngredients(extractIngredients(menuList));
-    }
+    const ingredientList = extractIngredients(menuList);
+    setIngredients(ingredientList);
   };
 
   useEffect(() => {
     setMenuList(menu);
+    const ingredientList = extractIngredients(menu);
+    setIngredients(ingredientList);
+  }, [menu]);
+
+  useEffect(() => {
     if (recipe) {
       setRecipeId(recipe);
       const foundRecipe = menu.find(
         item => item.recipe.id === parseInt(recipe)
       );
       setSelectedRecipe(foundRecipe.recipe);
+      const ingredientList = extractIngredients(foundRecipe.recipe);
+      setIngredients(ingredientList);
     }
   }, [menu, recipe]);
-
-  useEffect(() => {
-    if (recipeId) {
-      const foundRecipe = menu.find(
-        item => item.recipe.id === parseInt(recipeId)
-      );
-      setIngredients(extractIngredients(foundRecipe.recipe));
-    } else {
-      const asyncFunction = async () => {
-        const ingredientList = await extractIngredients(menuList);
-        setIngredients(ingredientList);
-      };
-      asyncFunction();
-    }
-  }, [menu, menuList, recipeId]);
 
   const ingredientLiElements = ingredients.map(item => (
     <li key={item.id}>
