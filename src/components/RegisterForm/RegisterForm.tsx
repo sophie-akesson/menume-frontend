@@ -16,7 +16,6 @@ const RegisterForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const [isRegistered, setIsRegistered] = useState(false);
 
   const onSubmit = async (formData: formDataProps) => {
     try {
@@ -37,7 +36,7 @@ const RegisterForm = () => {
         throw new Error(data.error);
       }
 
-      setIsRegistered(true);
+      router.replace('/');
     } catch (error) {
       setStatus('Det gick inte att registrera din användare. Försök igen.');
     }
@@ -47,115 +46,93 @@ const RegisterForm = () => {
     <>
       <h1 className={styles.heading}>Registrera konto</h1>
       <Box halfWidth>
-        {isRegistered ? (
-          <>
-            <p className={styles.registered}>Du är nu registrerad.</p>
-            <Button type='button' onClick={backToStartPage}>
-              Tillbaka till startsidan
+        <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
+          <div className='fieldGroup'>
+            <label htmlFor='username'>Användarnamn:</label>
+            <input
+              {...register('username', {
+                required: 'Obligatorisk',
+                minLength: {
+                  value: 3,
+                  message: 'Användarnamn måste innehålla minst 3 tecken.',
+                },
+              })}
+              type='text'
+              id='username'
+            />
+            {errors.username && (
+              <span className={styles.error}>{errors.username.message}</span>
+            )}
+          </div>
+          <div className='fieldGroup'>
+            <label htmlFor='email'>Mailadress:</label>
+            <input
+              {...register('email', {
+                required: 'Obligatorisk',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Värdet matchar inte formatet för mejladress.',
+                },
+              })}
+              type='email'
+              id='email'
+            />
+            {errors.email && (
+              <span className={styles.error}>{errors.email.message}</span>
+            )}
+          </div>
+          <div className='fieldGroup'>
+            <label htmlFor='password'>Lösenord:</label>
+            <input
+              {...register('password', {
+                required: 'Obligatorisk',
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message:
+                    'Lösenordet måste innehålla minst 8 tecken, minst en versal, minst en gemen, ett nummer och ett specialtecken.',
+                },
+              })}
+              type='password'
+              id='password'
+            />
+            {errors.password && (
+              <span className={styles.error}>{errors.password.message}</span>
+            )}
+          </div>
+          <div className='fieldGroup'>
+            <label htmlFor='confirmPassword'>Bekräfta lösenord:</label>
+            <input
+              {...register('confirmPassword', {
+                validate: (value: string) => value === watch('password'),
+              })}
+              type='password'
+              id='confirmPassword'
+            />
+            {errors.confirmPassword && (
+              <span className={styles.error}>
+                Lösenorden måste stämma överens.
+              </span>
+            )}
+          </div>
+          {status.length > 0 && (
+            <span className={`${styles.error} ${styles.badRequestSpan}`}>
+              {status}
+            </span>
+          )}
+          <div className='buttonWrapper'>
+            <Button type='button' onClick={backToStartPage} orientation='left'>
+              Tillbaka
             </Button>
-          </>
-        ) : (
-          <>
-            <form
-              className={styles.registerForm}
-              onSubmit={handleSubmit(onSubmit)}
+            <Button
+              type='submit'
+              onClick={handleSubmit(onSubmit)}
+              orientation='right'
             >
-              <div className='fieldGroup'>
-                <label htmlFor='username'>Användarnamn:</label>
-                <input
-                  {...register('username', {
-                    required: 'Obligatorisk',
-                    minLength: {
-                      value: 3,
-                      message: 'Användarnamn måste innehålla minst 3 tecken.',
-                    },
-                  })}
-                  type='text'
-                  id='username'
-                />
-                {errors.username && (
-                  <span className={styles.error}>
-                    {errors.username.message}
-                  </span>
-                )}
-              </div>
-              <div className='fieldGroup'>
-                <label htmlFor='email'>Mailadress:</label>
-                <input
-                  {...register('email', {
-                    required: 'Obligatorisk',
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: 'Värdet matchar inte formatet för mejladress.',
-                    },
-                  })}
-                  type='email'
-                  id='email'
-                />
-                {errors.email && (
-                  <span className={styles.error}>{errors.email.message}</span>
-                )}
-              </div>
-              <div className='fieldGroup'>
-                <label htmlFor='password'>Lösenord:</label>
-                <input
-                  {...register('password', {
-                    required: 'Obligatorisk',
-                    pattern: {
-                      value:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      message:
-                        'Lösenordet måste innehålla minst 8 tecken, minst en versal, minst en gemen, ett nummer och ett specialtecken.',
-                    },
-                  })}
-                  type='password'
-                  id='password'
-                />
-                {errors.password && (
-                  <span className={styles.error}>
-                    {errors.password.message}
-                  </span>
-                )}
-              </div>
-              <div className='fieldGroup'>
-                <label htmlFor='confirmPassword'>Bekräfta lösenord:</label>
-                <input
-                  {...register('confirmPassword', {
-                    validate: (value: string) => value === watch('password'),
-                  })}
-                  type='password'
-                  id='confirmPassword'
-                />
-                {errors.confirmPassword && (
-                  <span className={styles.error}>
-                    Lösenorden måste stämma överens.
-                  </span>
-                )}
-              </div>
-              {status.length > 0 && (
-                <span className={`${styles.error} ${styles.badRequestSpan}`}>
-                  {status}
-                </span>
-              )}
-              <div className='buttonWrapper'>
-                <Button
-                  type='button'
-                  onClick={backToStartPage}
-                  orientation='left'
-                >
-                  Tillbaka
-                </Button>
-                <Button
-                  type='submit'
-                  onClick={handleSubmit(onSubmit)}
-                  orientation='right'
-                >
-                  Registrera
-                </Button>
-              </div>
-            </form>
-          </>
-        )}
+              Registrera
+            </Button>
+          </div>
+        </form>
       </Box>
     </>
   );
