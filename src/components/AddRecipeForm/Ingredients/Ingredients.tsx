@@ -44,7 +44,7 @@ const Ingredients = ({ control, register, errors }) => {
                   pattern: /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/,
                 })}
                 type='text'
-                id='amount'
+                id={`amount${index}`}
               />
               {errors?.ingredients?.[index]?.amount && (
                 <span className={styles.error}>
