@@ -1,4 +1,4 @@
-const countRecipes = async (token, username) => {
+const countRecipes = async (token: string, username: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/recipes/count?author.username=${username}`,

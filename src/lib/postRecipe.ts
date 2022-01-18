@@ -1,4 +1,12 @@
-const postRecipe = async (name, servings, ingredients, description, token) => {
+import { IIngredient } from '@interfaces/ingredient';
+
+const postRecipe = async (
+  name: string,
+  servings: string,
+  ingredients: IIngredient[],
+  description: string,
+  token: string
+) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
       method: 'POST',

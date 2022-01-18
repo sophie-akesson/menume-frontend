@@ -1,4 +1,4 @@
-const checkGrocery = async (id, token, checked) => {
+const checkGrocery = async (id: number, token: string, checked: boolean) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${id}`,

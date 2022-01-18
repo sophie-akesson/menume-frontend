@@ -12,8 +12,31 @@ import generateMenu from '@lib/generateMenu';
 import { IRecipe } from '@interfaces/recipe';
 import Recipe from '@components/Recipe';
 import GroceryList from '@components/GroceryList';
+import type { NextPage } from 'next';
+import { IMenu } from '@interfaces/menu';
+import { DocumentContext } from 'next/document';
 
-const Home = ({ user, menu, token }) => {
+interface HomeProps {
+  user: {
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: true;
+    blocked: null;
+    role: {
+      id: number;
+      name: string;
+      description: string;
+      type: string;
+    };
+    created_at: string;
+    updated_at: string;
+  };
+  menu: IMenu[] | string;
+  token: string;
+}
+
+const Home: NextPage<HomeProps> = ({ user, menu, token }) => {
   const { username } = user || {};
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
@@ -112,7 +135,7 @@ const Home = ({ user, menu, token }) => {
   );
 };
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = async (ctx: DocumentContext) => {
   const cookies = nookies.get(ctx);
   let user = null;
   let menu = null;

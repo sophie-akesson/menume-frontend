@@ -1,7 +1,5 @@
 export interface AddRecipeFormProps {
-  token: {
-    token: string;
-  };
+  token: string;
   showRecipeListFunction(): void;
   setRecipeList(updatedRecipes): void;
 }

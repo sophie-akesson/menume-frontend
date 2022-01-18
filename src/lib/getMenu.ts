@@ -1,4 +1,4 @@
-const getMenu = async (token, username) => {
+const getMenu = async (token: string, username: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/menus?author=${username}`,

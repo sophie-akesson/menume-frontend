@@ -19,7 +19,7 @@ const RecipeList = ({
   const [showDialog, setShowDialog] = useState({ show: false, id: 0 });
   const [status, setStatus] = useState('');
 
-  const removeRecipe = async (token, username, id) => {
+  const removeRecipe = async (token: string, username: string, id: number) => {
     setShowDialog({ show: false, id: id });
 
     const data = await deleteRecipe(token, username, id);

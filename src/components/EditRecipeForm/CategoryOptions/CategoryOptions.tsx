@@ -1,6 +1,7 @@
+import { CategoryOptionsProps } from '@interfaces/categoryOptionsProps';
 import styles from './CategoryOptions.module.scss';
 
-const CategoryOptions = ({ register, index }) => {
+const CategoryOptions = ({ register, index }: CategoryOptionsProps) => {
   const categories = [
     'Frukt & grönsaker',
     'Kött & fågel',

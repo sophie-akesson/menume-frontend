@@ -1,4 +1,4 @@
-const getRecipes = async (username, token) => {
+const getRecipes = async (username: string, token: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/recipes?author.username=${username}`,

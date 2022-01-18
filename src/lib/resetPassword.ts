@@ -1,4 +1,8 @@
-const resetPassword = async (code, password, passwordConfirmation) => {
+const resetPassword = async (
+  code: string | string[],
+  password: string,
+  passwordConfirmation: string
+) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,

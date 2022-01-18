@@ -1,10 +1,11 @@
 import Button from '@components/Button';
+import { IngredientsProps } from '@interfaces/ingredientProps';
 import { useFieldArray } from 'react-hook-form';
 import CategoryOptions from '../CategoryOptions';
 import MetricOptions from '../MetricOptions';
 import styles from './Ingredients.module.scss';
 
-const Ingredients = ({ control, register, errors }) => {
+const Ingredients = ({ control, register, errors }: IngredientsProps) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'ingredients',
@@ -17,12 +18,12 @@ const Ingredients = ({ control, register, errors }) => {
           <div key={item.id} className={styles.ingredientWrapper}>
             <div className={`${styles.ingredientTextinput} fieldGroup`}>
               <input
-                {...register(`ingredients.[${index}].ingredientId`)}
+                {...register(`ingredients.${index}.ingredientId`)}
                 type='hidden'
               />
               <label htmlFor={`ingredientName${index}`}>Namn:</label>
               <input
-                {...register(`ingredients.[${index}].name`, {
+                {...register(`ingredients.${index}.name`, {
                   required: true,
                   minLength: 2,
                 })}
@@ -43,7 +44,7 @@ const Ingredients = ({ control, register, errors }) => {
             <div className={`fieldGroup ${styles.amountWrapper}`}>
               <label htmlFor='amount'>Mått:</label>
               <input
-                {...register(`ingredients.[${index}].amount`, {
+                {...register(`ingredients.${index}.amount`, {
                   required: true,
                   pattern: /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/,
                 })}

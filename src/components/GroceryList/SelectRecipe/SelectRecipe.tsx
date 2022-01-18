@@ -18,7 +18,7 @@ const SelectRecipe = ({
   }, [recipe]);
 
   useEffect(() => {
-    const closeOpenMenus = event => {
+    const closeOpenMenus = (event: MouseEvent) => {
       if (
         dropDownButton.current &&
         showDropdown &&

@@ -1,4 +1,4 @@
-const forgotPassword = async email => {
+const forgotPassword = async (email: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,

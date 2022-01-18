@@ -1,4 +1,4 @@
-const deleteRecipe = async (token, username, id) => {
+const deleteRecipe = async (token: string, username: string, id: number) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/recipes/${id}?author=${username}`,
