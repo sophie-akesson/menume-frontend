@@ -13,6 +13,10 @@ html {
   overflow-y: scroll;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 html,
 body {
   padding: 0;

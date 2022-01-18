@@ -9,6 +9,9 @@ const AppMenu = ({ isLoggedIn }: AppMenuProps) => {
 
   const setShowMobileMenuFunction = () => {
     setShowMobileMenu(!showMobileMenu);
+    document.documentElement.classList[showMobileMenu ? 'remove' : 'add'](
+      'noScroll'
+    );
   };
 
   return (
