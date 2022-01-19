@@ -24,11 +24,12 @@ const extractIngredients = (menuItem: IRecipe | IMenu[]) => {
             i.metric === ingredient.metric &&
             i.checked === ingredient.checked
           ) {
+            const newAmount = parseInt(i.amount) + parseInt(ingredient.amount);
             ingredient = {
               ...ingredient,
               id: [ingredient.id, i.id],
               recipe: [ingredient.recipe, i.recipe],
-              amount: parseInt(i.amount) + ingredient.amount,
+              amount: newAmount.toString(),
             };
             uniqueIngredients.splice(index, 1);
           }

@@ -3,7 +3,7 @@ export interface IIngredient {
   ingredientId?: number;
   recipe?: number | number[];
   name: string;
-  amount: number;
+  amount: string;
   category: string;
   metric: string;
   checked?: boolean;

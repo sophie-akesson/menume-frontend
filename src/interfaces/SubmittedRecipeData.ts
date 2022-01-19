@@ -4,7 +4,7 @@ export interface SubmittedRecipeDataProps {
   servings: string;
   ingredients: [
     {
-      amount: number;
+      amount: string;
       metric: string;
       name: string;
       category: string;

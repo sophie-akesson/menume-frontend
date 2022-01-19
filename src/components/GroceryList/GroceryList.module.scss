@@ -51,6 +51,7 @@
         font-weight: 400;
         font-size: var(--size15);
         color: var(--color-text);
+        text-transform: lowercase;
 
         &:hover {
           cursor: pointer;

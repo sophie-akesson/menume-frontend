@@ -1,7 +1,7 @@
 import styles from './AddRecipeForm.module.scss';
 import Box from '@components/Box';
 import Button from '@components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
 import { AddRecipeFormProps } from './types';
@@ -23,12 +23,27 @@ const AddRecipeForm = ({
   const {
     control,
     register,
+    setValue,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm({});
   const [status, setStatus] = useState('');
   const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    setValue('name', '');
+    setValue('servings', '');
+    setValue('ingredients', [
+      {
+        amount: '',
+        metric: '',
+        name: '',
+        category: '',
+      },
+    ]);
+    setValue('description', '');
+  }, []);
 
   const onSubmit = async (formData: SubmittedRecipeDataProps) => {
     try {

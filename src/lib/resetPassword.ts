@@ -15,11 +15,7 @@ const resetPassword = async (
       }
     );
 
-    if (response.status != 200) throw new Error();
-
-    const data = await response.json();
-
-    return data;
+    return response;
   } catch (error) {
     console.log(error);
   }

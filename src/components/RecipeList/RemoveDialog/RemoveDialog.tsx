@@ -1,5 +1,5 @@
 import Button from '@components/Button';
-import { RemoveDialogProps } from '.';
+import { RemoveDialogProps } from './types';
 import styles from './RemoveDialog.module.scss';
 
 const RemoveDialog = ({ setShowDialog, removeRecipe }: RemoveDialogProps) => {
