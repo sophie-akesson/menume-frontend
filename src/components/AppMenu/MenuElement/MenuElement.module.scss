@@ -9,6 +9,7 @@
   height: 100vh;
   background: var(--color-button);
   animation: animateMenu 0.8s ease;
+  z-index: 99;
 
   @media (min-width: 768px) {
     position: static;

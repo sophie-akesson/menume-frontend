@@ -67,7 +67,7 @@ const EditRecipeForm = ({
 
   return (
     <>
-      <h1>Ändra recept</h1>
+      <h1 className='row'>Ändra recept</h1>
       <Box>
         {isAdded ? (
           <>
@@ -162,7 +162,7 @@ const EditRecipeForm = ({
                   onClick={handleSubmit(onSubmit)}
                   orientation='right'
                 >
-                  Uppdatera recept
+                  Uppdatera
                 </Button>
               </div>
             </form>

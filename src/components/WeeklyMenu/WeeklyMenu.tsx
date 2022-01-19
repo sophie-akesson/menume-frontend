@@ -41,12 +41,14 @@ const WeeklyMenu = ({
 }: WeeklyMenuProps) => {
   return (
     <>
-      <h1>Välkommen {name}!</h1>
+      <h1 className='row'>Veckans meny</h1>
       <div className={styles.menuWrapper}>
         {menu.map(recipe => (
           <Box key={recipe.recipe.id} card>
-            <h2>{getWeekday(recipe.date)}</h2>
-            <h3>{recipe.recipe.name}</h3>
+            <div className={styles.recipeRow}>
+              <h2>{getWeekday(recipe.date)}</h2>
+              <h3>{recipe.recipe.name}</h3>
+            </div>
             <div className='buttonWrapper'>
               <Button
                 type='button'

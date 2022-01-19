@@ -35,10 +35,12 @@ const RecipeList = ({
 
   return (
     <>
-      <h1>Dina recept</h1>
-      <Button type='button' onClick={showAddRecipeForm}>
-        Lägg till recept
-      </Button>
+      <div className='row'>
+        <h1>Dina recept</h1>
+        <Button type='button' onClick={showAddRecipeForm}>
+          Lägg till recept
+        </Button>
+      </div>
       <div className={styles.recipesWrapper}>
         {recipes.map(recipe => (
           <Box key={recipe.id} card>

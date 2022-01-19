@@ -69,7 +69,7 @@ const AddRecipeForm = ({
 
   return (
     <>
-      <h1>Nytt recept</h1>
+      <h1 className='row'>Nytt recept</h1>
       <Box>
         {isAdded ? (
           <>

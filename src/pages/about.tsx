@@ -10,7 +10,7 @@ const About: NextPage = () => {
   return (
     <Layout isLoggedIn={false}>
       <>
-        <h1>Om</h1>
+        <h1 className='row'>Om</h1>
         <Box>
           <h2>Vad är MenuMe?</h2>
           <p>

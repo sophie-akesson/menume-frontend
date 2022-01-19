@@ -2,17 +2,17 @@
   display: grid;
   gap: var(--size20);
   grid-template-columns: 1fr;
-  margin-top: var(--size35);
 
   @media (min-width: 768px) {
-    gap: var(--size70);
+    column-gap: var(--size70);
+    row-gap: var(--size35);
     grid-template-columns: repeat(2, 1fr);
   }
 
   .recipeRow {
     display: flex;
     justify-content: space-between;
-    min-height: var(--size100);
+    min-height: var(--size70);
 
     button {
       margin-bottom: auto;

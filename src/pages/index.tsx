@@ -88,7 +88,7 @@ const Home: NextPage<HomeProps> = ({ user, menu, token }) => {
       {!loading && !user && <LoginForm />}
       {!loading && user && typeof menu === 'string' && (
         <>
-          <h1>Ingen meny</h1>
+          <h1 className='row'>Ingen meny</h1>
           <Box>
             <p>{menu}</p>
             <div>

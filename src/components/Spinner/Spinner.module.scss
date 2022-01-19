@@ -1,10 +1,6 @@
 .spinnerWrapper {
   margin: auto;
-  margin-top: var(--size100);
-
-  @media (min-width: 768px) {
-    margin-top: var(--size335);
-  }
+  margin-top: 50%;
 
   .spinnerCircle {
     width: var(--size50);

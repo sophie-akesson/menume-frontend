@@ -44,7 +44,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Registrera konto</h1>
+      <h1 className={`row ${styles.heading}`}>Registrera konto</h1>
       <Box halfWidth>
         <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <div className='fieldGroup'>

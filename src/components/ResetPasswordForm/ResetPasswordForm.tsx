@@ -37,7 +37,7 @@ const ResetPasswordForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Återställ lösenord</h1>
+      <h1 className={`row ${styles.heading}`}>Återställ lösenord</h1>
       <Box halfWidth>
         <form
           className={styles.resetPasswordForm}

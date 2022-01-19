@@ -32,7 +32,7 @@ const ForgotPasswordForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Glömt lösenord</h1>
+      <h1 className={`row ${styles.heading}`}>Glömt lösenord</h1>
       <Box halfWidth>
         {isSent ? (
           <p className={styles.sent}>

@@ -118,12 +118,14 @@ const GroceryList = ({
 
   return (
     <>
-      <h1>Inköpslista</h1>
-      {backButton && (
-        <Button type='button' onClick={showList}>
-          Tillbaka
-        </Button>
-      )}
+      <div className='row'>
+        <h1>Inköpslista</h1>
+        {backButton && (
+          <Button type='button' onClick={showList}>
+            Tillbaka
+          </Button>
+        )}
+      </div>
       <div className={styles.groceryListWrapper}>
         <Box>
           <SelectRecipe
