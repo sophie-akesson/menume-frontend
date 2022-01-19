@@ -28,9 +28,7 @@ const extractIngredients = (menuItem: IRecipe | IMenu[]) => {
               ...ingredient,
               id: [ingredient.id, i.id],
               recipe: [ingredient.recipe, i.recipe],
-              amount: (
-                parseInt(i.amount) + parseInt(ingredient.amount)
-              ).toString(),
+              amount: parseInt(i.amount) + ingredient.amount,
             };
             uniqueIngredients.splice(index, 1);
           }

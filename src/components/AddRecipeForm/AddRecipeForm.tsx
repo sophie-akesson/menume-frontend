@@ -4,8 +4,9 @@ import Button from '@components/Button';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
-import { AddRecipeFormProps, submittedDataProps } from './types';
+import { AddRecipeFormProps } from './types';
 import postRecipe from '@lib/postRecipe';
+import { SubmittedRecipeDataProps } from '@interfaces/SubmittedRecipeData';
 
 const defaultValues = {
   name: '',
@@ -29,7 +30,7 @@ const AddRecipeForm = ({
   const [status, setStatus] = useState('');
   const [isAdded, setIsAdded] = useState(false);
 
-  const onSubmit = async (formData: submittedDataProps) => {
+  const onSubmit = async (formData: SubmittedRecipeDataProps) => {
     try {
       const response = await postRecipe(
         formData.name,

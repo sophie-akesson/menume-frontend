@@ -6,6 +6,7 @@ import { EditRecipeFormProps } from './types';
 import Button from '@components/Button';
 import Ingredients from './Ingredients';
 import editRecipe from '@lib/editRecipe';
+import { SubmittedRecipeDataProps } from '@interfaces/SubmittedRecipeData';
 
 const EditRecipeForm = ({
   token,
@@ -42,7 +43,7 @@ const EditRecipeForm = ({
     }
   }, [recipe]);
 
-  const onSubmit = async formData => {
+  const onSubmit = async (formData: SubmittedRecipeDataProps) => {
     try {
       const response = await editRecipe(
         formData.id,
