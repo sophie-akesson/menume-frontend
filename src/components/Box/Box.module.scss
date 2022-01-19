@@ -1,15 +1,22 @@
 .wrapper {
   background-color: var(--color-box);
-  padding: var(--box-padding);
+  padding: var(--size35);
   width: 100%;
   border-radius: var(--box-border-radius);
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: var(--size20);
+
+  @media (min-width: 768px) {
+    margin-top: var(--size35);
+  }
 }
 
 .halfWidth {
+  padding: var(--box-padding);
+
   @media (min-width: 768px) {
     width: 50%;
   }
@@ -17,8 +24,14 @@
 
 .card {
   width: 100%;
+  padding: var(--box-padding);
+  transition: transform 0.1s ease-in-out;
 
   @media (min-width: 768px) {
     width: var(--size335);
+
+    &:hover {
+      transform: scale(1.05, 1.05);
+    }
   }
 }

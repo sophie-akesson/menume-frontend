@@ -1,11 +1,10 @@
 import Button from '@components/Button';
-import { RemoveDialogProps } from '.';
-import styles from './RemoveDialog.module.scss';
+import { RemoveDialogProps } from './types';
 
 const RemoveDialog = ({ setShowDialog, removeRecipe }: RemoveDialogProps) => {
   return (
     <>
-      <div className={styles.dialogRow}>
+      <div>
         <h2>Är du säker på att du vill ta bort receptet?</h2>
       </div>
       <div className='buttonWrapper'>

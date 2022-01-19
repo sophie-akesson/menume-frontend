@@ -1,12 +1,12 @@
-import React from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 export type Direction = 'left' | 'right';
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface ButtonProps {
-  children: React.ReactNode;
+  children: ReactNode;
   orientation?: Direction;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   type: ButtonType;
 }

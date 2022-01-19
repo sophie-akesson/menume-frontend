@@ -19,7 +19,7 @@ const RecipeList = ({
   const [showDialog, setShowDialog] = useState({ show: false, id: 0 });
   const [status, setStatus] = useState('');
 
-  const removeRecipe = async (token, username, id) => {
+  const removeRecipe = async (token: string, username: string, id: number) => {
     setShowDialog({ show: false, id: id });
 
     const data = await deleteRecipe(token, username, id);
@@ -35,10 +35,12 @@ const RecipeList = ({
 
   return (
     <>
-      <h1>Dina recept</h1>
-      <Button type='button' onClick={showAddRecipeForm}>
-        Lägg till recept
-      </Button>
+      <div className='row'>
+        <h1>Dina recept</h1>
+        <Button type='button' onClick={showAddRecipeForm}>
+          Lägg till recept
+        </Button>
+      </div>
       <div className={styles.recipesWrapper}>
         {recipes.map(recipe => (
           <Box key={recipe.id} card>

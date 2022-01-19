@@ -3,8 +3,9 @@ import { useFieldArray } from 'react-hook-form';
 import Button from '@components/Button';
 import MetricOptions from '../MetricOptions';
 import CategoryOptions from '../CategoryOptions';
+import { IngredientsProps } from '@interfaces/ingredientProps';
 
-const Ingredients = ({ control, register, errors }) => {
+const Ingredients = ({ control, register, errors }: IngredientsProps) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'ingredients',

@@ -1,6 +1,7 @@
 import styles from './MetricOptions.module.scss';
+import { MetricOptionsProps } from '@interfaces/metricOptionsProps';
 
-const MetricOptions = ({ register, index }) => {
+const MetricOptions = ({ register, index }: MetricOptionsProps) => {
   const metrics = [
     'st',
     'skivor',

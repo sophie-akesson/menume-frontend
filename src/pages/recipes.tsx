@@ -11,8 +11,30 @@ import Spinner from '@components/Spinner';
 import Recipe from '@components/Recipe';
 import { IRecipe } from '@interfaces/recipe';
 import EditRecipeForm from '@components/EditRecipeForm';
+import { DocumentContext } from 'next/document';
+import type { NextPage } from 'next';
 
-const Recipes = ({ user, token, recipes }) => {
+interface RecipesProps {
+  user: {
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: true;
+    blocked: null;
+    role: {
+      id: number;
+      name: string;
+      description: string;
+      type: string;
+    };
+    created_at: string;
+    updated_at: string;
+  };
+  recipes: IRecipe[];
+  token: string;
+}
+
+const Recipes: NextPage<RecipesProps> = ({ user, recipes, token }) => {
   const [showAddRecipeForm, setShowAddRecipeForm] = useState(false);
   const [showRecipe, setShowRecipe] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -124,10 +146,10 @@ const Recipes = ({ user, token, recipes }) => {
   );
 };
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = async (ctx: DocumentContext) => {
   let user = null;
-  let token = null;
-  let recipes = null;
+  let token: string = null;
+  let recipes: IRecipe[] = null;
   const cookies = nookies.get(ctx);
 
   const UserResponse = await getUser(cookies);

@@ -1,11 +1,12 @@
 import styles from './AddRecipeForm.module.scss';
 import Box from '@components/Box';
 import Button from '@components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Ingredients from './Ingredients';
-import { AddRecipeFormProps, submittedDataProps } from './types';
+import { AddRecipeFormProps } from './types';
 import postRecipe from '@lib/postRecipe';
+import { SubmittedRecipeDataProps } from '@interfaces/SubmittedRecipeData';
 
 const defaultValues = {
   name: '',
@@ -22,14 +23,29 @@ const AddRecipeForm = ({
   const {
     control,
     register,
+    setValue,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm({});
   const [status, setStatus] = useState('');
   const [isAdded, setIsAdded] = useState(false);
 
-  const onSubmit = async (formData: submittedDataProps) => {
+  useEffect(() => {
+    setValue('name', '');
+    setValue('servings', '');
+    setValue('ingredients', [
+      {
+        amount: '',
+        metric: '',
+        name: '',
+        category: '',
+      },
+    ]);
+    setValue('description', '');
+  }, []);
+
+  const onSubmit = async (formData: SubmittedRecipeDataProps) => {
     try {
       const response = await postRecipe(
         formData.name,
@@ -53,7 +69,7 @@ const AddRecipeForm = ({
 
   return (
     <>
-      <h1>Nytt recept</h1>
+      <h1 className='row'>Nytt recept</h1>
       <Box>
         {isAdded ? (
           <>

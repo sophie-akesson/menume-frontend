@@ -1,6 +1,6 @@
 import styles from './GroceryList.module.scss';
 import Box from '@components/Box';
-import checkGroceries from '@lib/checkGroceries';
+import checkGrocery from '@lib/checkGrocery';
 import { useEffect, useState } from 'react';
 import extractIngredients from './extractIngredients';
 import SelectRecipe from './SelectRecipe';
@@ -21,7 +21,10 @@ const GroceryList = ({
   const [menuList, setMenuList] = useState<IMenu[]>([]);
   const [ingredients, setIngredients] = useState([]);
 
-  const checkBoxOnChange = async (event, id) => {
+  const checkBoxOnChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: number | number[]
+  ) => {
     for (let r = 0; r < menuList.length; r++) {
       for (let i = 0; i < menuList[r].recipe.ingredients.length; i++) {
         if (
@@ -44,10 +47,10 @@ const GroceryList = ({
     if (Array.isArray(id)) {
       id.forEach(
         async ingredient =>
-          await checkGroceries(ingredient, token, event.target.checked)
+          await checkGrocery(ingredient, token, event.target.checked)
       );
     } else {
-      await checkGroceries(id, token, event.target.checked);
+      await checkGrocery(id, token, event.target.checked);
     }
 
     if (recipeId) {
@@ -63,7 +66,7 @@ const GroceryList = ({
     }
   };
 
-  const selectRecipe = id => {
+  const selectRecipe = (id: string) => {
     setRecipeId(id);
     const foundRecipe = menuList.find(item => item.recipe.id === parseInt(id));
     setSelectedRecipe(foundRecipe.recipe);
@@ -101,7 +104,9 @@ const GroceryList = ({
       <input
         type='checkbox'
         id={item.id.toString()}
-        onChange={event => checkBoxOnChange(event, item.id)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          checkBoxOnChange(event, item.id)
+        }
         checked={item.checked}
       />
       <div className={styles.customCheckBox}></div>
@@ -113,12 +118,14 @@ const GroceryList = ({
 
   return (
     <>
-      <h1>Inköpslista</h1>
-      {backButton && (
-        <Button type='button' onClick={showList}>
-          Tillbaka
-        </Button>
-      )}
+      <div className='row'>
+        <h1>Inköpslista</h1>
+        {backButton && (
+          <Button type='button' onClick={showList}>
+            Tillbaka
+          </Button>
+        )}
+      </div>
       <div className={styles.groceryListWrapper}>
         <Box>
           <SelectRecipe

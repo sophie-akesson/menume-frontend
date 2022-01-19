@@ -1,10 +1,12 @@
+import { IIngredient } from '@interfaces/ingredient';
+
 const editRecipe = async (
-  id,
-  name,
-  servings,
-  ingredients,
-  description,
-  token
+  id: number,
+  name: string,
+  servings: string,
+  ingredients: IIngredient[],
+  description: string,
+  token: string
 ) => {
   try {
     //Rename ingredientId key to id

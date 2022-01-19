@@ -1,7 +1,8 @@
 import Layout from '@components/Layout';
 import ResetPasswordForm from '@components/ResetPasswordForm';
+import type { NextPage } from 'next';
 
-const ResetPassword = () => {
+const ResetPassword: NextPage = () => {
   return (
     <Layout isLoggedIn={false}>
       <ResetPasswordForm />

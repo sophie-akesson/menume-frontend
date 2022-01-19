@@ -1,4 +1,4 @@
-const getUser = async cookies => {
+const getUser = async (cookies: { [key: string]: string }) => {
   if (cookies?.jwt) {
     try {
       const response = await fetch(

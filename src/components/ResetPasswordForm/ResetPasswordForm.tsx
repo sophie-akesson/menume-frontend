@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Box from '@components/Box';
 import { useForm } from 'react-hook-form';
 import { formDataProps } from './types';
+import resetPassword from '@lib/resetPassword';
 
 const ResetPasswordForm = () => {
   const router = useRouter();
@@ -18,22 +19,13 @@ const ResetPasswordForm = () => {
 
   const onSubmit = async (formData: formDataProps) => {
     try {
-      const response = await fetch('/api/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          code: router.query.code,
-          password: formData.password,
-          passwordConfirmation: formData.confirmPassword,
-        }),
-      });
+      const response = await resetPassword(
+        router.query.code,
+        formData.password,
+        formData.confirmPassword
+      );
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error);
-      }
+      if (response.status != 200) throw new Error();
 
       router.replace('/');
     } catch (error) {
@@ -45,7 +37,7 @@ const ResetPasswordForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Återställ lösenord</h1>
+      <h1 className={`row ${styles.heading}`}>Återställ lösenord</h1>
       <Box halfWidth>
         <form
           className={styles.resetPasswordForm}

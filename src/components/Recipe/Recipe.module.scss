@@ -1,14 +1,38 @@
 .recipeWrapper {
   width: 100%;
-  margin-top: var(--size35);
 
-  pre {
-    white-space: pre-wrap;
-    font-family: var(--main-font);
-  }
+  .contentWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
-  pre,
-  p {
-    margin: 0;
+    @media (min-width: 768px) {
+      flex-direction: row;
+
+      div:first-child {
+        width: 40%;
+        margin-right: var(--size10);
+      }
+
+      div:last-child {
+        width: 60%;
+        margin-left: var(--size10);
+      }
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-family: var(--main-font);
+    }
+
+    pre,
+    p {
+      margin: 0;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
   }
 }

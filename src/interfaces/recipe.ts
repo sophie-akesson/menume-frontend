@@ -1,18 +1,11 @@
+import { IIngredient } from './ingredient';
+
 export interface IRecipe {
   id: number;
   name: string;
   servings: number;
   description: string;
-  ingredients: [
-    {
-      id?: number;
-      name: string;
-      amount: string;
-      category: string;
-      metric: string;
-      checked?: boolean;
-    }
-  ];
+  ingredients: IIngredient[];
   published_at?: string;
   created_at?: string;
   author?: {

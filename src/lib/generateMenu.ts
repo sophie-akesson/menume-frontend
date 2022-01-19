@@ -4,9 +4,11 @@ import { previousMonday, isMonday, addDays, parseISO, format } from 'date-fns';
 import getMenu from './getMenu';
 import deleteMenu from './deleteMenu';
 import postMenu from './postMenu';
-import checkGrocery from './checkGroceries';
+import checkGrocery from './checkGrocery';
+import { IMenu } from '@interfaces/menu';
+import { IRecipe } from '@interfaces/recipe';
 
-const generateMenu = async (token, username) => {
+const generateMenu = async (token: string, username: string) => {
   let shouldGenerateMenu = false;
 
   const numberOfRecipes = await countRecipes(token, username);
@@ -14,7 +16,7 @@ const generateMenu = async (token, username) => {
   if (numberOfRecipes < 14)
     return `Du måste lägga in fler recept innan vi kan ge dig din meny. Just nu har du ${numberOfRecipes} av minimum 14 recept.`;
 
-  const currentMenu = await getMenu(token, username);
+  const currentMenu: IMenu[] = await getMenu(token, username);
 
   if (!currentMenu.length) {
     shouldGenerateMenu = true;
@@ -42,24 +44,29 @@ const generateMenu = async (token, username) => {
   return await createMenu(username, token, currentMenu);
 };
 
-const createMenu = async (username, token, menu) => {
-  let recipesToPost = [];
-  let createdMenu = [];
+const createMenu = async (username: string, token: string, menu: IMenu[]) => {
+  let recipesToPost: number[] = [];
+  let createdMenu: IMenu[] = [];
   let monday = new Date();
 
   //We want the first date to be the latest Monday
   if (!isMonday(new Date())) monday = previousMonday(new Date());
 
-  const recipes = await getRecipes(username, token);
+  const recipes: IRecipe[] = await getRecipes(username, token);
 
   //Extract recipeIds, since menu uses relations to recipes in Strapi
-  const recipeIds = recipes.reduce((a, recipe) => {
+  const recipeIds: number[] = recipes.reduce((a, recipe) => {
     a.push(recipe.id);
     return a;
   }, []);
 
+  const menuRecipeIds: number[] = menu.reduce((a, menuItem) => {
+    a.push(menuItem.recipe.id);
+    return a;
+  }, []);
+
   //Shuffle the ids
-  const shuffeledRecipes = shuffleRecipes(recipeIds);
+  const shuffeledRecipes: number[] = shuffleRecipes(recipeIds);
 
   //If there's a current menu, delete it first
   if (menu.length) {
@@ -67,17 +74,17 @@ const createMenu = async (username, token, menu) => {
 
     //If there's a previous menu we also need to uncheck
     //all ingredients from the grocery list
-    menu.forEach(async recipe => {
-      recipe.recipe.ingredients.forEach(async ingredient => {
-        await checkGrocery(ingredient.id, token, false);
+    menu.forEach(async menuItem => {
+      menuItem.recipe.ingredients.forEach(async ingredient => {
+        await checkGrocery(ingredient.id as number, token, false);
       });
     });
 
     //Make sure that the recipes eligable for a new menu
     //isn't in the previous menu to avoid having the same recipe
     //in the menu two weeks in a row.
-    recipesToPost = shuffeledRecipes.filter(recipe => {
-      menu.includes(!recipe.recipe);
+    recipesToPost = shuffeledRecipes.filter(recipeId => {
+      !menuRecipeIds.includes(recipeId);
     });
   } else {
     recipesToPost = shuffeledRecipes;
@@ -99,7 +106,7 @@ const createMenu = async (username, token, menu) => {
   return createdMenu;
 };
 
-const shuffleRecipes = recipes => {
+const shuffleRecipes = (recipes: number[]) => {
   //Shuffle recipes using Fisher-Yates algorithm
   let currentIndex = recipes.length;
   let randomIndex;

@@ -42,10 +42,10 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Logga in</h1>
+      <h1 className={`row ${styles.heading}`}>Logga in</h1>
       <Box halfWidth>
         <div className={styles.register}>
-          <p>{`Inget konto?`}</p>
+          <p>Inget konto?</p>
           <Link href='/register'>
             <a>Registrera dig här.</a>
           </Link>
