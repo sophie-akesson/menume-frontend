@@ -1,5 +1,9 @@
 # MenuMe
 
+## About
+
+This project uses Next for its flexible building solutions (SSR, SSG, ISR). In this case, server side rendering was chosen for easy use with Strapi. In more detail, the application uses Nookies to set cookies server side which are used for storing JWT tokens. It is also used to fetch data on demand, users of Menume will be responsible for their own content and can make changes to their own data.
+
 ## Getting Started
 
 To run the development server:
@@ -23,12 +27,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Components
 
-- Component files should contain one component.
+- Component folder should contain files for one component, placing another component folder inside the component is OK.
 - Functions related to the component should be placed in its own file in the same folder, unless it's useful elsewhere and can be used as a utility.
 
 ### Styles
 
-- Component .sass files should be put in the component folder.
+- Component .scss files should be put in the component folder.
 - Avoid using hard coded units for sizing. Use defined sizing from the global styling.
 
 ### Functions
@@ -50,17 +54,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ├── assets/
 │    └── icons
 │    └── images
-├── components
+├── components/
 │    └── ComponentName/
 │          └── index.ts
-│          └── ComponentName.tsx
-│          └── ComponentPart.tsx
-│          └── AnotherComponentPart.tsx
 │          └── aFunction.ts
+│          └── ComponentName.tsx
+│          └── ComponentName.module.scss
 │          └── types.ts
-│          └── tests/
+│          └── ComponentPart/
+│                   └── ComponentPart.tsx
+│                   └── types.ts
+│                   └── aFunction.ts
+│                   └── ComponentPart.module.scss
 ├── interfaces/
+├── lib/
 ├── pages/
 ├── styles/
-├── utils
+├── utils/
 ```
